@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    /**
+     * Relations
+     */
+    public function company(){
+        return $this->belongsTo('App\Companies', 'companies_id');
+    }
 }
