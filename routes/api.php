@@ -21,6 +21,10 @@ Route::resource('companies', 'CompaniesController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
 
+Route::resource('meetings', 'MeetingController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
 Route::resource('projects', 'ProjectController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
