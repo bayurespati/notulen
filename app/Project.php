@@ -18,4 +18,15 @@ class Project extends Model
 		'name',
 		'address'
     ];
+
+    /**
+     * Relations
+     */
+    public function rooms(){
+        return $this->hasMany('App\Room', 'project_id');
+    }
+
+    public function meetings(){
+        return $this->hasMany('App\Meeting', 'project_id');
+    }
 }

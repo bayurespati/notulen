@@ -18,7 +18,7 @@ class CreateMeetingAttendancesTable extends Migration
             $table->bigInteger('meeting_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->boolean('is_attending');
-            $table->string('is_attending');
+            $table->string('general_note');
             $table->timestamps();
 
             $table->foreign('meeting_id')

@@ -25,6 +25,18 @@ Route::resource('meetings', 'MeetingController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
 
+Route::resource('msRooms', 'MsRoomController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
 Route::resource('projects', 'ProjectController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('rooms', 'RoomController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('roomFiles', 'RoomFileController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
