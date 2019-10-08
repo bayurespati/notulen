@@ -29,4 +29,8 @@ class Project extends Model
     public function meetings(){
         return $this->hasMany('App\Meeting', 'project_id');
     }
+
+    public function items(){
+        return $this->hasMany('App\Item', 'project_id');
+    }
 }

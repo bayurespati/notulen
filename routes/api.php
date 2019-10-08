@@ -21,7 +21,23 @@ Route::resource('companies', 'CompaniesController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
 
+Route::resource('items', 'itemController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
 Route::resource('meetings', 'MeetingController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('msItems', 'MsItemController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('msItemDetails', 'MsItemDetailController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('msItemTypes', 'MsItemTypeController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
 
