@@ -32,4 +32,8 @@ class Item extends Model
     public function project(){
     	return $this->belongsTo('App\Project', 'project_id');
     }
+
+    public function discussedItems(){
+        return $this->hasMany('App\DiscussedItems', 'item_id');
+    }
 }

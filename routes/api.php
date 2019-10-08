@@ -21,6 +21,18 @@ Route::resource('companies', 'CompaniesController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
 
+Route::resource('discussedItems', 'DiscussedItemController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('discussedItemFiles', 'DiscussedItemFileController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
+Route::resource('discussedItemIssues', 'DiscussedItemIssueController',[
+	'only' => ['index', 'store','update','destroy'],
+]);
+
 Route::resource('items', 'itemController',[
 	'only' => ['index', 'store','update','destroy'],
 ]);
