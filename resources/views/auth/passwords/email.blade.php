@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.guest')
+
+@push('title')
+    <title>Notulen App - Email</title>
+@endpush
 
 @section('content')
 <div class="container">
