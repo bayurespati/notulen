@@ -15,9 +15,12 @@ require('chart.js');
 
 require('hchs-vue-charts');
 
+import Vuetify from 'vuetify';
+
 window.Vue = require('vue');
 
 window.Vue.use(VueCharts);
+window.Vue.use(Vuetify);
 
 window.events = new Vue();
 

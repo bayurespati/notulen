@@ -14,6 +14,8 @@
     @stack('vendor_css')
 
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="/css/vuetify/vuetify.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/material-icons/material-design-icons.css">
     <link href="{{ asset('css/base.css') }}" rel="stylesheet">
 
     @stack('additional_css')

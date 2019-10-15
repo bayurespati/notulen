@@ -48,14 +48,13 @@
     	@include('partials.navbar')
     	<!-- ENF OF NAVBAR -->
 
-        <div id="projects" class="main-content container">
-            <div class="col-sm-12">
-                <h1>USER LIST</h1>
-            </div>
+        <div id="user" class="main-content container">
+            <user-list></user-list>
         </div>
 
     </div>
 @endsection
 
 @push('additional_js')
+<script src="{{ asset('js/master/user.js') }}"></script>
 @endpush

@@ -1,5 +1,12 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/master/company.js": "/js/master/company.js",
+    "/js/master/detail.js": "/js/master/detail.js",
+    "/js/master/finishing.js": "/js/master/finishing.js",
+    "/js/master/item.js": "/js/master/item.js",
+    "/js/master/room.js": "/js/master/room.js",
+    "/js/master/user.js": "/js/master/user.js",
+    "/js/project/project.js": "/js/project/project.js",
     "/css/base.css": "/css/base.css",
     "/css/animation.css": "/css/animation.css",
     "/js/base.js": "/js/base.js"
