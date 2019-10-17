@@ -16568,3 +16568,151 @@ form.dropzone {
 .fuelux .wizard.complete > .actions .btn-next .glyphicon {
   display: none;
 }
+.help-block {
+    font-size: 0.8462rem;
+    color: #F45846;
+    display: block;
+}
+
+.panel-font-small {
+    font-size: 1rem;
+}
+
+td.actions,
+tr.actions {
+    width: 72px !important;
+}
+
+td input,
+td select{
+    margin: 0 !important;
+    padding: 0.4rem 0.3rem !important;
+    border: 0 !important
+}
+
+td select{
+    height: 2rem !important;
+}
+
+.form-control-select{
+    height: 2.730rem !important;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.bg-grey {
+    background-color: #fafafa !important;
+}
+
+.bg-grey-2 {
+    background-color: #fafafa !important;
+}
+
+.bg-grey-3 {
+    background-color: #f7f7fb !important;
+}
+
+.bg-red {
+    background-color: #f9c5c0 !important;
+}
+
+.small-font-btn {
+    font-size: 12px;
+}
+
+.col-avatar,
+.col-avatar img,
+.col-avatar i,
+.panel-avatar,
+.panel-avatar img,
+.comment-avatar,
+.comment-avatar img{
+    border-radius: 50% !important;
+}
+
+.col-avatar,
+.panel-avatar,
+.comment-avatar{
+    display: inline-block;
+    margin-right: 4px;
+    margin-bottom: 4px;
+}
+
+.col-avatar,
+.col-avatar img,
+.col-avatar i {
+    height: 32px;
+    width: 32px;
+}
+
+.panel-avatar,
+.panel-avatar img{
+    height: 74px;
+    width: 74px;
+}
+
+.comment-avatar,
+.comment-avatar img {
+    height: 52px;
+    width: 52px;
+}
+
+button.col-avatar{
+    padding: 0;
+    border:0;
+    margin-top:4px;
+}
+
+[v-cloak]{
+    display: none;
+}
+
+.first-letter{
+    text-transform: capitalize;
+}
+
+.custom-control{
+    padding-left: 2.23077rem !important;
+}
+
+.sticky-right{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.size-2 {
+    font-size: 2rem !important;
+}
+
+.panel-footer {
+    padding: 14px 20px 14px;
+}
+
+.panel-bt-full {
+    border-top: 1px solid #e6e6e6;
+}
+
+.slider-menu {
+    /*position: relative;*/
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 1rem 1rem;
+}
+
+.mai-header-no-sub {
+    padding: 0 !important;
+}
+
+.mai-header-no-sub:before{
+    height: 0 !important;
+}

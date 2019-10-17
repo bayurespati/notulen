@@ -16,7 +16,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('project.list') }}" 
                                 class="nav-link {{ request()->is('projects/*') || request()->is('projects') ? 'active' : '' }}">
-                                    <span class="icon s7-monitor"></span>
+                                    <span class="icon s7-portfolio"></span>
                                     <span class="name">Project List</span>
                                 </a>
                             </li>
@@ -26,18 +26,18 @@
                         <a href="#" role="button" 
                         aria-expanded="false" 
                         class="nav-link">
-                        <span class="icon s7-home"></span><span>Data Masters</span></a>
+                        <span class="icon s7-albums"></span><span>Data Masters</span></a>
                         <ul class="mai-nav-tabs-sub mai-sub-nav nav">
                             <li class="nav-item">
                                 <a href="{{ route('user.list') }}" 
                                 class="nav-link {{ request()->is('data_master/users/*') || request()->is('data_master/users') ? 'active' : '' }}">
-                                    <span class="icon s7-monitor"></span><span class="name">Users</span>
+                                    <span class="icon s7-users"></span><span class="name">Users</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('company.list') }}" 
                                 class="nav-link {{ request()->is('data_master/companies/*') || request()->is('data_master/companies') ? 'active': ''}}">
-                                <span class="icon s7-monitor"></span><span class="name">Companies</span></a>
+                                <span class="icon s7-culture"></span><span class="name">Companies</span></a>
                             </li>
                             <li class="nav-item dropdown parent {{ request()->is('data_master/items/*') ? 'show' : '' }}">
                                 <a href="#" data-toggle="dropdown" class="nav-link">
@@ -52,7 +52,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('room.list') }}" 
                                 class="nav-link {{ request()->is('data_master/rooms/*') || request()->is('data_master/rooms') ? 'active': ''}}">
-                                    <span class="icon s7-monitor"></span><span class="name">Rooms</span>
+                                    <span class="icon s7-crop"></span><span class="name">Rooms</span>
                                 </a>
                             </li>
                         </ul>

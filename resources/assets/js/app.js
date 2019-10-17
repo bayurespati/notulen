@@ -21,6 +21,9 @@ window.Vue.use(VueCharts);
 
 window.events = new Vue();
 
+window.flash = function (message, type, duration) {
+    window.events.$emit('flash', message, type, duration);
+};
 
 
 /**

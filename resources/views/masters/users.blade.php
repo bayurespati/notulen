@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('title')
-<title>Data Masters - Users</title>
+<title>Pengguna - List</title>
 @endpush
 
 @push('additional_css')

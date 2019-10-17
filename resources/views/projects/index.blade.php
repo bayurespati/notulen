@@ -50,7 +50,12 @@
 
         <div id="project" class="main-content container">
             <div class="col-sm-12">
-                <project-list></project-list>
+                <div class="panel panel-default panel-table">
+                    <!-- START OF PANEL HEADER -->
+                    PROJECT TABLE
+                    <project-list></project-list>
+                    <!-- END OF PANEL HEADER -->
+                </div>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('title')
-<title>Projects - List</title>
+<title>Items (Finishings) - List</title>
 @endpush
 
 @push('additional_css')
