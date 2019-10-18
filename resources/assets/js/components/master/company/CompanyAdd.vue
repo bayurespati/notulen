@@ -8,7 +8,7 @@
                 <span class="title">Tambah <strong class="font-weight-bold">Perusahaan </strong> Baru</span>
             </div>
 
-            <div class="col-sm-12 d-flex justify-content-around form-group" :class="errors.title ? 'has-danger' : ''">
+            <div class="col-sm-12 d-flex justify-content-around form-group">
                 <div class="col-sm-3 text-right">
                     <label for="company_title"
                            class="form-control-label panel-font-small">
@@ -23,10 +23,6 @@
                            v-model="perusahaanData.name"
                            @keyup.enter="addCompany"
                     >
-
-                    <form-error v-if="errors.name"
-                                :error="errors.name"
-                    ></form-error>
                 </div>
             </div>
 
@@ -152,13 +148,6 @@
                     primary_contact: '',
                     secondary_contact: ''
                 },
-                errors: {
-                    name: '',
-                    city: '',
-                    address: '',
-                    email: '',
-                    primary_contact: '',
-                }
             }
         },
 
@@ -181,45 +170,7 @@
                 //         vm.$emit('set-alert-flag', [true, response]);
                 //     })
                 //     .catch(function (error) {
-                //         vm.emptyErrorsState();
-                //         vm.setErrors(error);
                 //     })
-            },
-
-            emptyErrorsState(){
-                let vm = this;
-
-                Object.keys(this.errors).map(function (variable) {
-                    vm.errors[variable] = '';
-                });
-            },
-
-            setErrors(error){
-                let errors = error.response.data;
-
-                let keys = Object.keys(errors).map(function (key) {
-                    return key;
-                });
-
-                if(keys.includes('name')) {
-                    this.errors.name = 'Nama perusahaan harus diisi'
-                }
-
-                if(keys.includes('city')) {
-                    this.errors.city = 'Kota perusahaan harus diisi'
-                }
-
-                if(keys.includes('address')) {
-                    this.errors.address = 'Alamat perusahaan harus diisi'
-                }
-
-                if(keys.includes('email')) {
-                    this.errors.email = 'Email perusahaan harus diisi'
-                }
-
-                if(keys.includes('primary_contact')) {
-                    this.errors.primary_contact = 'Kontak utama perusahaan harus diisi'
-                }
             },
 
             resetForm(){
@@ -229,13 +180,6 @@
                 this.perusahaanData.email = '';
                 this.perusahaanData.primary_contact = '';
                 this.perusahaanData.secondary_contact = '';
-
-                this.errors.name = '';
-                this.errors.city = '';
-                this.errors.address = '';
-                this.errors.email = '';
-                this.errors.primary_contact = '';
-                this.errors.secondary_contact = '';
             },
 
             setTambahFlag(){

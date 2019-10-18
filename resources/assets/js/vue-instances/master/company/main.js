@@ -9,7 +9,8 @@ new Vue({
     data: {
     	tableColumns: [
     		{
-    			name: 'nama',
+    			name: 'name',
+                columnName: 'Nama',
     			recordable: true,
     			sortable: true,
     			nullable: false,
@@ -18,7 +19,8 @@ new Vue({
     			inputValue: false
     		},
     		{
-    			name: 'kota',
+    			name: 'city',
+                columnName: 'Kota',
     			recordable: true,
     			sortable: true,
     			nullable: false,
@@ -27,7 +29,8 @@ new Vue({
     			inputValue: false
     		},
     		{
-    			name: 'alamat',
+    			name: 'address',
+                columnName: 'Alamat',
     			recordable: true,
     			sortable: false,
     			nullable: false,
@@ -37,6 +40,7 @@ new Vue({
     		},
     		{
     			name: 'email',
+                columnName: 'Email',
     			recordable: true,
     			sortable: true,
     			nullable: false,
@@ -45,7 +49,8 @@ new Vue({
     			inputValue: false
     		},
     		{
-    			name: 'kontak_utama',
+    			name: 'primary_contact',
+                columnName: 'Kontak Utama',
     			recordable: true,
     			sortable: false,
     			nullable: false,
@@ -54,7 +59,8 @@ new Vue({
     			inputValue: false
     		},
     		{
-    			name: 'kontak_sekunder',
+    			name: 'secondary_contact',
+                columnName: 'Kontak Sekunder',
     			recordable: true,
     			sortable: false,
     			nullable: false,
@@ -64,6 +70,7 @@ new Vue({
     		},
     		{
     			name: 'aksi',
+                columnName: 'Aksi',
     			recordable: false,
     			sortable: false,
     			nullable: false,
@@ -76,16 +83,16 @@ new Vue({
     	testArray: [
     		{
     			id: 1,
-    			nama: 'David Bayu',
-    			kota: 'Jakarta',
-    			alamat: 'alamat',
+    			name: 'David Bayu',
+    			city: 'Jakarta',
+    			address: 'alamat',
     			email: 'email@email.com',
-    			kontak_utama: '123456',
-    			kontak_sekunder: ''
+    			primary_contact: '123456',
+    			secondary_contact: ''
     		}
     	],
 
-    	initialSort: 'nama',
+    	initialSort: 'name',
     	path: 'insert api path here',
     	searchKey: '',
     	alertData: [],

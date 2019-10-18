@@ -49,7 +49,45 @@
     	<!-- ENF OF NAVBAR -->
 
         <div id="room" class="main-content container">
-            <room-list></room-list>
+            <div class="col-sm-12">
+                
+                <!-- START OF PANEL -->
+                <div class="panel panel-default panel-table">
+                    
+                    <!-- START OF PANEL HEADER -->
+                    <room-header 
+                    @set-alert-flag="alertData = $event"
+                    @set-search="setSearch">
+                    </room-header>
+                    <!-- END OF PANEL HEADER -->
+
+                    <!-- START OF PANEL BODY -->
+                    <personalised-table 
+                    :table-columns="tableColumns"
+                    :test-array="testArray"
+                    :initial-sort="initialSort"
+                    :path="path"
+                    :search-key="searchKey"
+                    :alert-data="alertData"
+                    :initial-page="currentPage"
+                    :per-page="perPage"
+                    @total-results-changed="totalResults = $event">
+                    </personalised-table>
+                    <!-- END OF PANEL BODY -->
+
+                </div>
+                <!-- END OF PANEL -->
+
+                <!-- START OF PAGINATION -->
+                <pagination 
+                :current="currentPage"
+                :total="totalResults"
+                :per-page="perPage"
+                @page-changed="pageChanged">
+                </pagination>
+                <!-- END OF PAGINATION -->
+
+            </div>
         </div>
 
     </div>

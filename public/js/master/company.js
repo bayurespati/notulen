@@ -360,10 +360,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -374,13 +370,6 @@ __webpack_require__.r(__webpack_exports__);
         email: '',
         primary_contact: '',
         secondary_contact: ''
-      },
-      errors: {
-        name: '',
-        city: '',
-        address: '',
-        email: '',
-        primary_contact: ''
       }
     };
   },
@@ -400,41 +389,7 @@ __webpack_require__.r(__webpack_exports__);
       //         vm.$emit('set-alert-flag', [true, response]);
       //     })
       //     .catch(function (error) {
-      //         vm.emptyErrorsState();
-      //         vm.setErrors(error);
       //     })
-    },
-    emptyErrorsState: function emptyErrorsState() {
-      var vm = this;
-      Object.keys(this.errors).map(function (variable) {
-        vm.errors[variable] = '';
-      });
-    },
-    setErrors: function setErrors(error) {
-      var errors = error.response.data;
-      var keys = Object.keys(errors).map(function (key) {
-        return key;
-      });
-
-      if (keys.includes('name')) {
-        this.errors.name = 'Nama perusahaan harus diisi';
-      }
-
-      if (keys.includes('city')) {
-        this.errors.city = 'Kota perusahaan harus diisi';
-      }
-
-      if (keys.includes('address')) {
-        this.errors.address = 'Alamat perusahaan harus diisi';
-      }
-
-      if (keys.includes('email')) {
-        this.errors.email = 'Email perusahaan harus diisi';
-      }
-
-      if (keys.includes('primary_contact')) {
-        this.errors.primary_contact = 'Kontak utama perusahaan harus diisi';
-      }
     },
     resetForm: function resetForm() {
       this.perusahaanData.name = '';
@@ -443,12 +398,6 @@ __webpack_require__.r(__webpack_exports__);
       this.perusahaanData.email = '';
       this.perusahaanData.primary_contact = '';
       this.perusahaanData.secondary_contact = '';
-      this.errors.name = '';
-      this.errors.city = '';
-      this.errors.address = '';
-      this.errors.email = '';
-      this.errors.primary_contact = '';
-      this.errors.secondary_contact = '';
     },
     setTambahFlag: function setTambahFlag() {
       this.$emit('set-tambah-flag', false);
@@ -1363,10 +1312,10 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     setSortKey: function setSortKey(value) {
       this.$emit('set-sort-key', value);
-    },
-    trimUnderscore: function trimUnderscore(columnName) {
-      return columnName.replace(/_/g, ' ');
-    }
+    } // trimUnderscore(columnName){
+    // return columnName.replace(/_/g,' ');
+    // }
+
   }
 });
 
@@ -2563,8 +2512,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "col-sm-12 d-flex justify-content-around form-group",
-                  class: _vm.errors.title ? "has-danger" : ""
+                    "col-sm-12 d-flex justify-content-around form-group"
                 },
                 [
                   _c("div", { staticClass: "col-sm-3 text-right" }, [
@@ -2578,63 +2526,52 @@ var render = function() {
                     )
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "col-sm-9" },
-                    [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.perusahaanData.name,
-                            expression: "perusahaanData.name"
-                          }
-                        ],
-                        staticClass: "form-control form-control-sm",
-                        attrs: {
-                          id: "company_title",
-                          type: "text",
-                          placeholder: "Masukkan Nama Perusahaan"
-                        },
-                        domProps: { value: _vm.perusahaanData.name },
-                        on: {
-                          keyup: function($event) {
-                            if (
-                              !$event.type.indexOf("key") &&
-                              _vm._k(
-                                $event.keyCode,
-                                "enter",
-                                13,
-                                $event.key,
-                                "Enter"
-                              )
-                            ) {
-                              return null
-                            }
-                            return _vm.addCompany($event)
-                          },
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.perusahaanData,
-                              "name",
-                              $event.target.value
-                            )
-                          }
+                  _c("div", { staticClass: "col-sm-9" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.perusahaanData.name,
+                          expression: "perusahaanData.name"
                         }
-                      }),
-                      _vm._v(" "),
-                      _vm.errors.name
-                        ? _c("form-error", {
-                            attrs: { error: _vm.errors.name }
-                          })
-                        : _vm._e()
-                    ],
-                    1
-                  )
+                      ],
+                      staticClass: "form-control form-control-sm",
+                      attrs: {
+                        id: "company_title",
+                        type: "text",
+                        placeholder: "Masukkan Nama Perusahaan"
+                      },
+                      domProps: { value: _vm.perusahaanData.name },
+                      on: {
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.addCompany($event)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.perusahaanData,
+                            "name",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ])
                 ]
               ),
               _vm._v(" "),
@@ -3754,9 +3691,7 @@ var render = function() {
                 _vm.sortBy === column.name
                   ? _c("span", { staticClass: "first-letter" }, [
                       _vm._v(
-                        "\n                " +
-                          _vm._s(_vm.trimUnderscore(column.name)) +
-                          "  "
+                        "\n                " + _vm._s(column.columnName) + "  "
                       ),
                       _c("i", {
                         staticClass: "icon-right s7-angle-down-circle"
@@ -3764,9 +3699,7 @@ var render = function() {
                     ])
                   : _c("span", { staticClass: "first-letter" }, [
                       _vm._v(
-                        "\n                " +
-                          _vm._s(_vm.trimUnderscore(column.name)) +
-                          " "
+                        "\n                " + _vm._s(column.columnName) + " "
                       ),
                       _c("i", { staticClass: "icon-right s7-angle-down" })
                     ])
@@ -3774,9 +3707,7 @@ var render = function() {
             )
           : _c("span", { staticClass: "first-letter" }, [
               _vm._v(
-                "\n            " +
-                  _vm._s(_vm.trimUnderscore(column.name)) +
-                  "\n        "
+                "\n            " + _vm._s(column.columnName) + "\n        "
               )
             ])
       ])
@@ -5113,7 +5044,8 @@ new Vue({
   el: '#company',
   data: {
     tableColumns: [{
-      name: 'nama',
+      name: 'name',
+      columnName: 'Nama',
       recordable: true,
       sortable: true,
       nullable: false,
@@ -5121,7 +5053,8 @@ new Vue({
       inputType: 'text',
       inputValue: false
     }, {
-      name: 'kota',
+      name: 'city',
+      columnName: 'Kota',
       recordable: true,
       sortable: true,
       nullable: false,
@@ -5129,7 +5062,8 @@ new Vue({
       inputType: 'text',
       inputValue: false
     }, {
-      name: 'alamat',
+      name: 'address',
+      columnName: 'Alamat',
       recordable: true,
       sortable: false,
       nullable: false,
@@ -5138,6 +5072,7 @@ new Vue({
       inputValue: false
     }, {
       name: 'email',
+      columnName: 'Email',
       recordable: true,
       sortable: true,
       nullable: false,
@@ -5145,7 +5080,8 @@ new Vue({
       inputType: 'text',
       inputValue: false
     }, {
-      name: 'kontak_utama',
+      name: 'primary_contact',
+      columnName: 'Kontak Utama',
       recordable: true,
       sortable: false,
       nullable: false,
@@ -5153,7 +5089,8 @@ new Vue({
       inputType: 'text',
       inputValue: false
     }, {
-      name: 'kontak_sekunder',
+      name: 'secondary_contact',
+      columnName: 'Kontak Sekunder',
       recordable: true,
       sortable: false,
       nullable: false,
@@ -5162,6 +5099,7 @@ new Vue({
       inputValue: false
     }, {
       name: 'aksi',
+      columnName: 'Aksi',
       recordable: false,
       sortable: false,
       nullable: false,
@@ -5171,14 +5109,14 @@ new Vue({
     }],
     testArray: [{
       id: 1,
-      nama: 'David Bayu',
-      kota: 'Jakarta',
-      alamat: 'alamat',
+      name: 'David Bayu',
+      city: 'Jakarta',
+      address: 'alamat',
       email: 'email@email.com',
-      kontak_utama: '123456',
-      kontak_sekunder: ''
+      primary_contact: '123456',
+      secondary_contact: ''
     }],
-    initialSort: 'nama',
+    initialSort: 'name',
     path: 'insert api path here',
     searchKey: '',
     alertData: [],

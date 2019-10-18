@@ -5,16 +5,16 @@
                   class="icon"
                   @click="setSortKey(column.name)">
                 <span v-if="sortBy === column.name" class="first-letter">
-                    {{ trimUnderscore(column.name) }}  <i class="icon-right s7-angle-down-circle"></i>
+                    {{ column.columnName }}  <i class="icon-right s7-angle-down-circle"></i>
                 </span>
 
                 <span v-else class="first-letter">
-                    {{ trimUnderscore(column.name) }} <i class="icon-right s7-angle-down"></i>
+                    {{ column.columnName }} <i class="icon-right s7-angle-down"></i>
                 </span>
             </span>
 
             <span v-else class="first-letter">
-                {{ trimUnderscore(column.name) }}
+                {{ column.columnName }}
             </span>
         </th>
     </tr>
@@ -39,9 +39,9 @@
             setSortKey(value){
                 this.$emit('set-sort-key', value);
             },
-            trimUnderscore(columnName){
-                return columnName.replace(/_/g,' ');
-            }
+            // trimUnderscore(columnName){
+                // return columnName.replace(/_/g,' ');
+            // }
         }
     };
 </script>
