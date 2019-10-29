@@ -381,15 +381,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addCompany: function addCompany() {
-      var vm = this; // axios.post('/api/..', {
-      //     
-      // })
-      //     .then(function (response) {
-      //         vm.resetForm();
-      //         vm.$emit('set-alert-flag', [true, response]);
-      //     })
-      //     .catch(function (error) {
-      //     })
+      var vm = this;
+      var data = {
+        name: vm.perusahaanData.name,
+        city: vm.perusahaanData.city,
+        email: vm.perusahaanData.email,
+        address: vm.perusahaanData.address,
+        primary_contact: vm.perusahaanData.primary_contact,
+        secondary_contact: vm.perusahaanData.secondary_contact
+      };
+      axios.post('/api/companies', data).then(function (response) {// vm.$emit('set-notification', response);
+      })["catch"](function (error) {
+        // vm.emptyErrorsState();
+        // vm.setErrors(error.response.data);
+        console.log(error.response.data);
+      });
     },
     resetForm: function resetForm() {
       this.perusahaanData.name = '';
@@ -5149,7 +5155,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/company/main.js */"./resources/assets/js/vue-instances/master/company/main.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/company/main.js */"./resources/assets/js/vue-instances/master/company/main.js");
 
 
 /***/ })

@@ -20,7 +20,7 @@ class CreateCompaniesTable extends Migration
             $table->string('address');
             $table->string('email');
             $table->string('primary_contact');
-            $table->string('secondary_contact');
+            $table->string('secondary_contact')->nullable();
             $table->timestamps();
         });
     }

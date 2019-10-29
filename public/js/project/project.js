@@ -350,7 +350,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/project/main.js */"./resources/assets/js/vue-instances/project/main.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/project/main.js */"./resources/assets/js/vue-instances/project/main.js");
 
 
 /***/ })

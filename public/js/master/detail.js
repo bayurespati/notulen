@@ -286,15 +286,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addDetail: function addDetail() {
-      var vm = this; // axios.post('/api/..', {
-      //     
-      // })
-      //     .then(function (response) {
-      //         vm.resetForm();
-      //         vm.$emit('set-alert-flag', [true, response]);
-      //     })
-      //     .catch(function (error) {
-      //     })
+      var vm = this;
+      axios.post('/api/msItemDetails', this.detailData).then(function (response) {
+        vm.resetForm(); // vm.$emit('set-alert-flag', [true, response]);
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
     },
     resetForm: function resetForm() {
       this.detailData.name = '';
@@ -4654,7 +4651,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/item/detail/main.js */"./resources/assets/js/vue-instances/master/item/detail/main.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/item/detail/main.js */"./resources/assets/js/vue-instances/master/item/detail/main.js");
 
 
 /***/ })

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\MsItemDetail;
 use Illuminate\Http\Request;
+use App\Http\Requests\MsItemDetailRequest;
 
 class MsItemDetailController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -21,7 +21,7 @@ class MsItemDetailController extends Controller
      * Store a newly created resource in storage.
      *
      */
-    public function store(Request $request)
+    public function store(MsItemDetailRequest $request)
     {
         MsItemDetail::create($request->all());
 
@@ -32,7 +32,7 @@ class MsItemDetailController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, MsItemDetail $msItemDetail)
+    public function update(MsItemDetailRequest $request, MsItemDetail $msItemDetail)
     {
         MsItemDetail::where('id', $msItemDetail->id)
             ->update([

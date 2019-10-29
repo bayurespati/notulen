@@ -10,7 +10,6 @@ class MeetingController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -19,8 +18,9 @@ class MeetingController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      */
-    public function store(Request $request)
+    public function store(MeetingRequest $request)
     {
         Meeting::create($request->all());
 
@@ -29,16 +29,17 @@ class MeetingController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
      */
-    public function update(Request $request, Meeting $meeting)
+    public function update(MeetingRequest $request, Meeting $meeting)
     {
         Meeting::where('id', $meeting->id)
             ->update([
-                'title'        => $request->title,
+                'general_note'  => $request->general_note,
                 'planned_date'  => $request->planned_date,
-                'actual_date'  => $request->actual_date,
-                'general_note' => $request->general_note,
-                'project_id'   => $request->project_id
+                'actual_date'   => $request->actual_date,
+                'project_id'    => $request->project_id
+                'title'         => $request->title,
             ]);
 
         return response()->json('Success update meeting',200);
@@ -46,6 +47,7 @@ class MeetingController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      */
     public function destroy(Meeting $meeting)
     {

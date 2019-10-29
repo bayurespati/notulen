@@ -305,15 +305,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addRoom: function addRoom() {
-      var vm = this; // axios.post('/api/..', {
-      //     
-      // })
-      //     .then(function (response) {
-      //         vm.resetForm();
-      //         vm.$emit('set-alert-flag', [true, response]);
-      //     })
-      //     .catch(function (error) {
-      //     })
+      var vm = this;
+      axios.post('/api/msRooms', this.ruanganData).then(function (response) {// vm.resetForm();
+        // vm.$emit('set-alert-flag', [true, response]);
+      })["catch"](function (error) {
+        console.log(error.response.data);
+      });
     },
     resetForm: function resetForm() {
       this.ruanganData.code = '';
@@ -4745,7 +4742,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/room/main.js */"./resources/assets/js/vue-instances/master/room/main.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/room/main.js */"./resources/assets/js/vue-instances/master/room/main.js");
 
 
 /***/ })
