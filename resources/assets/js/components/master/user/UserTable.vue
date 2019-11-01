@@ -32,6 +32,7 @@
                                      :span="colspan"
                                      :api-path="apiPath"
                                      @edit-root-array="editRootArray"
+                                     @show-modal="showModal"
                                 >
                                 </row>
                             </template>
@@ -51,10 +52,10 @@
 </template>
 
 <script>
-    import TableHeaderNotification from './TableHeaderNotification.vue';
-    import TableHeader from './TableHeader.vue';
-    import Row from './TableRow.vue';
-    import NoRecord from './RowNoRecord.vue';
+    import TableHeaderNotification from '../../table/TableHeaderNotification.vue';
+    import TableHeader from '../../table/TableHeader.vue';
+    import Row from '../../table/TableRow.vue';
+    import NoRecord from '../../table/RowNoRecord.vue';
 
     export default {
         components: {
@@ -65,7 +66,13 @@
         },
         
         props: {
-            tableColumns: {
+            activeTableColumns: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+            inactiveTableColumns: {
                 type: Array,
                 default: function () {
                     return []
@@ -108,6 +115,10 @@
             perPage: {
                 type: Number,
                 default: 20
+            },
+            isActive: {
+                type: Boolean,
+                default: true
             }
         },
 
@@ -125,6 +136,8 @@
                 alertMsg: '',
 
                 sortKey: this.initialSort,
+
+                tableColumns: this.activeTableColumns
             }
         },
 
@@ -176,6 +189,19 @@
 
             totalResults(){
                 this.$emit('total-results-changed', this.totalResults);
+            },
+
+            isActive(){
+                if(this.isActive){
+                    this.tableColumns = this.activeTableColumns;
+                }
+                else{
+                    this.tableColumns = this.inactiveTableColumns;
+                }
+
+                this.currentPage = 1;
+
+                this.sortBasedOn(this.sortKey);
             }
         },
 
@@ -233,14 +259,11 @@
                 let vm = this;
 
                 this.searchResults = this.rootArray.filter(function (item) {
-                    if (vm.searchKey.length > 0) {
-                        for (let i = 0; i < vm.columns.length; i++) {
-                            if (item[vm.columns[i]].toLowerCase().includes(value.toLowerCase())) {
-                                return item;
-                            }
+                    for (let i = 0; i < vm.columns.length; i++) {
+                        if (item[vm.columns[i]].toLowerCase().includes(value.toLowerCase()) 
+                            && item.isActive === vm.isActive) {
+                            return item;
                         }
-                    } else {
-                        return item;
                     }
                 });
 
@@ -272,6 +295,10 @@
                 this.alertMsg = alertData[1].data.msg;
 
                 this.editRootArray([alertData[1].data.action, alertData[1].data.content]);
+            },
+
+            showModal(data) { //modal name and row data
+                this.$emit('set-modal-to-show', data);
             },
 
             editRootArray(response){

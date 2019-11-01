@@ -1,6 +1,6 @@
 <template>
 
-   <span class="form-group">
+   <span class="form-group" :class="errorMessage ? 'has-danger' : ''">
        <template v-if="column.inputType === 'text'">
            <input type="text"
                   class="form-control form-control-sm"
@@ -52,15 +52,6 @@
                </template>
            </select>
        </template>
-
-
-       <template v-else-if="column.inputType === 'file'">
-           <input type="file"
-                  class="form-control form-control-sm"
-                  @change="getFile"
-                  @keyup.enter="commenceEdit"
-           >
-       </template>
    </span>
 
 </template>
@@ -83,6 +74,11 @@
             id: {
                 type: Number,
                 default: 0
+            },
+
+            errorMessage: {
+              type: String,
+              default: ""
             }
         },
 
@@ -101,33 +97,6 @@
         methods: {
             commenceEdit(){
                 this.$emit('commence-edit');
-            },
-            getFile(event){
-
-                let files = event.target.files || event.dataTransfer.files;
-
-                if (!files.length)
-                    return;
-
-                this.$emit('set-file-name', files[0].name);
-
-                this.createFile(files[0]);
-
-                this.totalFile = event.length;
-
-                this.isInitial = true;
-            },
-
-            createFile(file){
-                let reader = new FileReader();
-
-                let vm = this;
-
-                reader.onload = (e) => {
-                    vm.input = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
             },
         }
     };

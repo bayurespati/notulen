@@ -1,4 +1,5 @@
 import ProjectList from '../../components/project/ProjectList.vue';
+import Flash from '../../components/global/Flash.vue';
 
 
 new Vue({
@@ -9,7 +10,8 @@ new Vue({
     },
 
     components: {
-        ProjectList
+        ProjectList,
+        Flash
     },
 
     methods: {

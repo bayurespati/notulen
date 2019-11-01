@@ -1,4 +1,5 @@
 import DetailHeader from '../../../../components/master/item/detail/DetailHeader.vue';
+import Flash from '../../../../components/global/Flash.vue';
 import PersonalisedTable from '../../../../components/table/Table.vue';
 import Pagination from '../../../../components/global/Pagination.vue';
 
@@ -12,26 +13,21 @@ new Vue({
     		{
     			name: 'name',
     			columnName: 'Nama',
-    			recordable: true,
     			sortable: true,
-    			nullable: false,
     			deleteMsg: true,
     			inputType: 'text',
     			inputValue: false
     		},
     		{
-    			name: 'aksi',
+    			name: 'aksi', //action column must have 'aksi' as the name
     			columnName: 'Aksi',
-    			recordable: false,
-    			sortable: false,
-    			nullable: false,
-    			deleteMsg: false,
-    			inputType: false,
-    			inputValue: false
+                editType: 'inline', //inline, modal, goTo
     		}
     	],
 
-    	testArray: [
+        nullable: [],
+
+    	testArray: [ //only used if apiPath is 'insert api path here'
     		{
     			id: 1,
     			name: 'Top',
@@ -39,7 +35,7 @@ new Vue({
     	],
 
     	initialSort: 'name',
-    	path: 'insert api path here',
+    	apiPath: 'insert api path here',
     	searchKey: '',
     	alertData: [],
 
@@ -61,6 +57,7 @@ new Vue({
 
     components: {
         DetailHeader,
+        Flash,
         PersonalisedTable,
         Pagination
     },

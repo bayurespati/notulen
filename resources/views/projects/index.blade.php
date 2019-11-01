@@ -42,13 +42,13 @@
 	</nav>
 	<!-- END OF TOPNAV -->
 
-    <div class="mai-wrapper">
+    <div class="mai-wrapper" id="project">
 
     	<!-- START OF NAVBAR -->
     	@include('partials.navbar')
     	<!-- ENF OF NAVBAR -->
 
-        <div id="project" class="main-content container">
+        <div class="main-content container">
             <div class="col-sm-12">
                 <div class="panel panel-default panel-table">
                     <!-- START OF PANEL HEADER -->
@@ -58,6 +58,8 @@
                 </div>
             </div>
         </div>
+
+        <flash></flash>
 
     </div>
 @endsection

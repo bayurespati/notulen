@@ -25,10 +25,10 @@
             </div>
         </div>
 
-        <add
-                :tambah-flag="tambahFlag"
-                @set-alert-flag="setAlertFlag"
-                @set-tambah-flag="tambahFlag = $event"
+        <add :tambah-flag="tambahFlag"
+             :api-path="apiPath"
+             @set-alert-flag="setAlertFlag"
+             @set-tambah-flag="tambahFlag = $event"
         ></add>
     </div>
 </template>
@@ -40,6 +40,13 @@
     export default {
         components: {
             Add, SearchFilter
+        },
+
+        props: {
+            apiPath: {
+                type: String,
+                default: ''
+            },
         },
 
         data: function () {

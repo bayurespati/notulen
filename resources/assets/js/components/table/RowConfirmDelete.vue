@@ -3,7 +3,7 @@
         <td :colspan="span" class="pt-3 pb-3 text-center text-white">
             <span class="text-white mr-2">{{ message }}</span>
             <button class="btn btn-xs btn-success" @click="deleteFromRootArray">Hapus</button>
-            <button class="btn btn-xs btn-secondary" @click="confirm" autofocus>Batalkan</button>
+            <button class="btn btn-xs btn-secondary" @click="cancel" autofocus>Batalkan</button>
         </td>
     </tr>
 </template>
@@ -24,7 +24,12 @@
             span: {
                 type: Number,
                 default: 0
-            }
+            },
+
+            apiPath: {
+                type: String,
+                default: ''
+            },
         },
 
         data: function () {
@@ -35,11 +40,26 @@
 
         methods: {
             deleteFromRootArray(){
-                this.setToData();
-                this.$emit('delete-from-root-array', ['delete', this.id]);
+                if(this.apiPath == 'insert api path here'){
+                    this.setToData();
+                    this.$emit('delete-from-root-array', ['delete', this.id]);
+                    flash('Entri telah berhasil dihapus');
+                }
+                else {
+                    const vm = this;
+
+                    axios.delete('/api/' + this.apiPath + "/" + this.id)
+                    .then(function () {
+                        this.$emit('delete-from-root-array', ['delete', this.id]);
+                        flash('Entri telah berhasil dihapus');
+                    })
+                    .catch(function (error) {
+                        flash('Ups, terjadi masalah!', 'danger');
+                    });;
+                }
             },
 
-            confirm(){
+            cancel(){
                 this.setToData();
             },
 

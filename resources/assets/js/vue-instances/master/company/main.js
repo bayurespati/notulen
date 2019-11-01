@@ -1,4 +1,5 @@
 import CompanyHeader from '../../../components/master/company/CompanyHeader.vue';
+import Flash from '../../../components/global/Flash.vue';
 import PersonalisedTable from '../../../components/table/Table.vue';
 import Pagination from '../../../components/global/Pagination.vue';
 
@@ -11,9 +12,7 @@ new Vue({
     		{
     			name: 'name',
                 columnName: 'Nama',
-    			recordable: true,
     			sortable: true,
-    			nullable: false,
     			deleteMsg: true,
     			inputType: 'text',
     			inputValue: false
@@ -21,9 +20,7 @@ new Vue({
     		{
     			name: 'city',
                 columnName: 'Kota',
-    			recordable: true,
     			sortable: true,
-    			nullable: false,
     			deleteMsg: false,
     			inputType: 'text',
     			inputValue: false
@@ -31,9 +28,7 @@ new Vue({
     		{
     			name: 'address',
                 columnName: 'Alamat',
-    			recordable: true,
     			sortable: false,
-    			nullable: false,
     			deleteMsg: false,
     			inputType: 'textArea',
     			inputValue: false
@@ -41,9 +36,7 @@ new Vue({
     		{
     			name: 'email',
                 columnName: 'Email',
-    			recordable: true,
     			sortable: true,
-    			nullable: false,
     			deleteMsg: false,
     			inputType: 'text',
     			inputValue: false
@@ -51,9 +44,7 @@ new Vue({
     		{
     			name: 'primary_contact',
                 columnName: 'Kontak Utama',
-    			recordable: true,
     			sortable: false,
-    			nullable: false,
     			deleteMsg: false,
     			inputType: 'text',
     			inputValue: false
@@ -61,39 +52,61 @@ new Vue({
     		{
     			name: 'secondary_contact',
                 columnName: 'Kontak Sekunder',
-    			recordable: true,
     			sortable: false,
-    			nullable: false,
     			deleteMsg: false,
     			inputType: 'text',
     			inputValue: false
     		},
     		{
-    			name: 'aksi',
+    			name: 'aksi', //action column must have 'aksi' as the name
                 columnName: 'Aksi',
-    			recordable: false,
-    			sortable: false,
-    			nullable: false,
-    			deleteMsg: false,
-    			inputType: false,
-    			inputValue: false
+                editType: 'inline', //inline, modal, goTo
     		}
     	],
 
-    	testArray: [
+        nullable: ['secondary_contact'],
+
+    	testArray: [ //only used if apiPath is 'insert api path here'
     		{
     			id: 1,
-    			name: 'David Bayu',
+    			name: 'Kompeni Satu',
     			city: 'Jakarta',
-    			address: 'alamat',
+    			address: 'Kau',
     			email: 'email@email.com',
     			primary_contact: '123456',
-    			secondary_contact: ''
-    		}
+    			secondary_contact: null
+    		},
+            {
+                id: 2,
+                name: 'Kompeni Dua',
+                city: 'Makassar',
+                address: 'Yang',
+                email: 'email1@email.com',
+                primary_contact: '789123',
+                secondary_contact: '322233'
+            },
+            {
+                id: 3,
+                name: 'Company One',
+                city: 'Jakarta',
+                address: 'Paling',
+                email: 'email2@email.com',
+                primary_contact: '456789',
+                secondary_contact: null
+            },
+            {
+                id: 4,
+                name: 'Kompeni Tiga',
+                city: 'Bandung',
+                address: 'Sejiwa',
+                email: 'email3@email.com',
+                primary_contact: '654321',
+                secondary_contact: '192837'
+            },
     	],
 
     	initialSort: 'name',
-    	path: 'insert api path here',
+    	apiPath: 'insert api path here',
     	searchKey: '',
     	alertData: [],
 
@@ -115,6 +128,7 @@ new Vue({
 
     components: {
         CompanyHeader,
+        Flash,
         PersonalisedTable,
         Pagination
     }

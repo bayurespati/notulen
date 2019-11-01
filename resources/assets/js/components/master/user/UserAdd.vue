@@ -5,24 +5,24 @@
     >
         <div v-if="tambahFlag" class="row mr-0 ml-0 mt-5 mb-4 pt-3 pb-3 bg-grey">
             <div class="col-sm-12 d-flex justify-content-center mb-5" >
-                <span class="title">Tambah <strong class="font-weight-bold">Perusahaan </strong> Baru</span>
+                <span class="title">Tambah <strong class="font-weight-bold">User </strong> Baru</span>
             </div>
 
             <div class="col-sm-12 d-flex justify-content-around form-group"
                 :class="errors.name ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
-                    <label for="company_title"
+                    <label for="user_name"
                            class="form-control-label panel-font-small">
                         Nama
                     </label>
                 </div>
                 <div class="col-sm-9">
-                    <input id="company_title"
+                    <input id="user_name"
                            type="text"
                            class="form-control form-control-sm"
-                           placeholder="Masukkan Nama Perusahaan"
-                           v-model="perusahaanData.name"
-                           @keyup.enter="addCompany"
+                           placeholder="Masukkan Nama User"
+                           v-model="userData.name"
+                           @keyup.enter="addUser"
                     >
 
                     <form-error v-if="errors.name"
@@ -32,24 +32,25 @@
             </div>
 
             <div class="col-sm-12 d-flex justify-content-around form-group"
-                :class="errors.city ? 'has-danger' : ''">
+                :class="errors.company ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
-                    <label for="company_city"
+                    <label for="user_company"
                            class="form-control-label panel-font-small">
-                        Kota
+                        Perusahaan
                     </label>
                 </div>
                 <div class="col-sm-9">
-                    <input id="company_city"
-                           type="text"
-                           class="form-control form-control-sm"
-                           placeholder="Masukkan Kota Perusahaan"
-                           v-model="perusahaanData.city"
-                           @keyup.enter="addCompany"
-                    >
+                    <select v-model="userData.company"
+                    @keyup.enter="addUser"
+                    class="form-control form-control-xs custom-select">
 
-                    <form-error v-if="errors.city"
-                                :error="errors.city"
+                    	<template v-for="value in companyArray">
+                   			<option :value="value">{{ value }}</option>
+               			</template>
+               		</select>
+
+                    <form-error v-if="errors.company"
+                                :error="errors.company"
                     ></form-error>
                 </div>
             </div>
@@ -57,18 +58,18 @@
             <div class="col-sm-12 d-flex justify-content-around form-group"
                 :class="errors.address ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
-                    <label for="company_address"
+                    <label for="user_address"
                            class="form-control-label panel-font-small">
                         Alamat
                     </label>
                 </div>
                 <div class="col-sm-9">
-                    <input id="company_address"
+                    <input id="user_address"
                            type="text"
                            class="form-control form-control-sm"
-                           placeholder="Masukkan Alamat Perusahaan"
-                           v-model="perusahaanData.address"
-                           @keyup.enter="addCompany"
+                           placeholder="Masukkan Alamat User"
+                           v-model="userData.address"
+                           @keyup.enter="addUser"
                     >
 
                     <form-error v-if="errors.address"
@@ -80,18 +81,18 @@
             <div class="col-sm-12 d-flex justify-content-around form-group"
                 :class="errors.email ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
-                    <label for="company_email"
+                    <label for="user_email"
                            class="form-control-label panel-font-small">
                         Email
                     </label>
                 </div>
                 <div class="col-sm-9">
-                    <input id="company_email"
+                    <input id="user_email"
                            type="text"
                            class="form-control form-control-sm"
-                           placeholder="Masukkan Email Perusahaan"
-                           v-model="perusahaanData.email"
-                           @keyup.enter="addCompany"
+                           placeholder="Masukkan Email User"
+                           v-model="userData.email"
+                           @keyup.enter="addUser"
                     >
 
                     <form-error v-if="errors.email"
@@ -101,20 +102,43 @@
             </div>
 
             <div class="col-sm-12 d-flex justify-content-around form-group"
+                :class="errors.current_position ? 'has-danger' : ''">
+                <div class="col-sm-3 text-right">
+                    <label for="user_current_position"
+                           class="form-control-label panel-font-small">
+                        Jabatan
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input id="user_current_position"
+                           type="text"
+                           class="form-control form-control-sm"
+                           placeholder="Masukkan Kontak Utama User"
+                           v-model="userData.current_position"
+                           @keyup.enter="addUser"
+                    >
+
+                    <form-error v-if="errors.current_position"
+                                :error="errors.current_position"
+                    ></form-error>
+                </div>
+            </div>
+
+            <div class="col-sm-12 d-flex justify-content-around form-group"
                 :class="errors.primary_contact ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
-                    <label for="company_primary_contact"
+                    <label for="user_primary_contact"
                            class="form-control-label panel-font-small">
                         Kontak Utama
                     </label>
                 </div>
                 <div class="col-sm-9">
-                    <input id="company_primary_contact"
+                    <input id="user_primary_contact"
                            type="text"
                            class="form-control form-control-sm"
-                           placeholder="Masukkan Kontak Utama Perusahaan"
-                           v-model="perusahaanData.primary_contact"
-                           @keyup.enter="addCompany"
+                           placeholder="Masukkan Kontak Utama User"
+                           v-model="userData.primary_contact"
+                           @keyup.enter="addUser"
                     >
 
                     <form-error v-if="errors.primary_contact"
@@ -126,18 +150,18 @@
             <div class="col-sm-12 d-flex justify-content-around form-group"
                 :class="errors.secondary_contact ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
-                    <label for="company_secondary_contact"
+                    <label for="user_secondary_contact"
                            class="form-control-label panel-font-small">
                         Kontak Sekunder
                     </label>
                 </div>
                 <div class="col-sm-9">
-                    <input id="company_secondary_contact"
+                    <input id="user_secondary_contact"
                            type="text"
                            class="form-control form-control-sm"
-                           placeholder="Masukkan Kontak Sekunder Perusahaan"
-                           v-model="perusahaanData.secondary_contact"
-                           @keyup.enter="addCompany"
+                           placeholder="Masukkan Kontak Sekunder User"
+                           v-model="userData.secondary_contact"
+                           @keyup.enter="addUser"
                     >
 
                     <form-error v-if="errors.secondary_contact"
@@ -146,10 +170,62 @@
                 </div>
             </div>
 
+            <div class="col-sm-12 d-flex justify-content-around form-group"
+                :class="errors.isActive ? 'has-danger' : ''">
+                <div class="col-sm-3 text-right">
+                    <label for="user_status"
+                           class="form-control-label panel-font-small">
+                        Status
+                    </label>
+                </div>
+                <div class="col-sm-9 form-check mt-2 panel-font-small">
+                	<label class="custom-control custom-radio">
+                        <input type="radio"
+                               name="radio-inline"
+                               class="custom-control-input"
+                               value="true"
+                               v-model="userData.isActive">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Aktif</span>
+                    </label>
+                    <label class="custom-control custom-radio panel-font-small">
+                        <input type="radio"
+                               name="radio-inline"
+                               class="custom-control-input"
+                               value="false"
+                               v-model="userData.isActive">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">Nonaktif</span>
+                    </label>
+
+                    <form-error v-if="errors.isActive"
+                                :error="errors.isActive"
+                    ></form-error>
+                </div>
+            </div>
+
+            <div class="col-sm-12 d-flex justify-content-around form-group">
+                <div class="col-sm-3 text-right">
+                    <label for="user_password"
+                           class="form-control-label panel-font-small">
+                        Password (Auto-generated)
+                    </label>
+                </div>
+                <div class="col-sm-9">
+                    <input id="user_password"
+                           type="text"
+                           class="form-control form-control-sm"
+                           disabled
+                           v-model="password"
+                           @keyup.enter="addUser"
+                    >
+                </div>
+            </div>
+
             <div class="col-sm-4 offset-3 d-flex justify-content-around mt-3">
                 <div class="col-sm-6">
                     <button class="full-width btn btn-success btn-block btn-sm"
-                            @click="addCompany"
+                            @click="addUser"
                     >
                         <i class="icon icon-left s7-plus"></i> Tambah
                     </button>
@@ -176,13 +252,15 @@
 
         data: function () {
             return {
-                perusahaanData: {
+                userData: {
                     name: '',
-                    city: '',
+                    company: '',
                     address: '',
                     email: '',
+                    current_position: '',
                     primary_contact: '',
-                    secondary_contact: ''
+                    secondary_contact: '',
+                    isActive: true,
                 },
                 errors: {}
             }
@@ -198,29 +276,50 @@
                 type: String,
                 default: ''
             },
+
+            companyArray: {
+            	type: Array,
+                default: function () {
+                    return [];
+                }
+            }
+        },
+
+        watch: {
+        	'userData.isActive': function (newValue, oldValue){
+        		if(newValue == true || newValue == "true"){
+        			this.userData.isActive = true;
+        		}
+        		else {
+        			this.userData.isActive = false;
+        		}
+        	}
+        },
+
+        computed: {
+        	password(){
+        		return this.userData.name + 'NotulenApp';
+        	}
         },
 
         methods: {
-            addCompany(){
-                // SIMULATE ERROR
-                // const errorTest = {
-                //      "name":["The name field is required.", "Test second error.", "Test third error."],
-                //      "city":["The email field is required."],
-                //      "address":["The password field is required."],
-                //      "email":["The address field is required."],
-                //      "primary_contact":["The current position field is required."],
-                //      "secondary_contact":["The primary contact field is required."]
-                // };
-
-                // this.cleanErrors();
-                // this.fillErrors(errorTest);
-
-                //  COMMENT THE REST OF THIS METHOD TO SIMULATE ERROR
+            addUser(){
+            	const sentData = {
+                	name: this.userData.name,
+                   	company: this.userData.company,
+                   	address: this.userData.address,
+                   	email: this.userData.email,
+                   	current_position: this.userData.current_position,
+                   	primary_contact: this.userData.primary_contact,
+                   	secondary_contact: this.userData.secondary_contact,
+                   	isActive: this.userData.isActive,
+                   	password: this.password
+               	}
 
                 if(this.apiPath == "insert api path here"){
                     const testAdd = {
                         data: {
-                            'content': this.perusahaanData,
+                            'content': sentData,
                             'action': 'add',
                             'type': 'success',
                             'msg': 'Entri telah berhasil ditambah!'
@@ -233,7 +332,7 @@
                 }
                 else {
                     const vm = this;
-                    axios.post('/api/' + this.apiPath, this.perusahaanData)
+                    axios.post('/api/' + this.apiPath, this.sentData)
                     .then(function (response) {
                         vm.$emit('set-alert-flag', [true, response]);
                         vm.resetForm();
@@ -248,12 +347,14 @@
             },
 
             resetForm(){
-                this.perusahaanData.name = '';
-                this.perusahaanData.city = '';
-                this.perusahaanData.address = '';
-                this.perusahaanData.email = '';
-                this.perusahaanData.primary_contact = '';
-                this.perusahaanData.secondary_contact = '';
+                this.userData.name = '';
+                this.userData.company = '',
+                this.userData.address = '',
+                this.userData.email = '',
+                this.userData.current_position = '',
+                this.userData.primary_contact = '',
+                this.userData.secondary_contact = '',
+				this.userData.isActive = true,
 
                 this.cleanErrors();
             },

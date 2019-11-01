@@ -42,13 +42,13 @@
 	</nav>
 	<!-- END OF TOPNAV -->
 
-    <div class="mai-wrapper">
+    <div class="mai-wrapper" id="company">
 
     	<!-- START OF NAVBAR -->
     	@include('partials.navbar')
     	<!-- ENF OF NAVBAR -->
 
-        <div id="company" class="main-content container">
+        <div class="main-content container">
             <div class="col-sm-12">
                 
                 <!-- START OF PANEL -->
@@ -56,8 +56,10 @@
                     
                     <!-- START OF PANEL HEADER -->
                     <company-header 
+                    :api-path="apiPath"
+                    @set-search="setSearch"
                     @set-alert-flag="alertData = $event"
-                    @set-search="setSearch">
+                    >
                     </company-header>
                     <!-- END OF PANEL HEADER -->
 
@@ -66,7 +68,8 @@
                     :table-columns="tableColumns"
                     :test-array="testArray"
                     :initial-sort="initialSort"
-                    :path="path"
+                    :nullable="nullable"
+                    :api-path="apiPath"
                     :search-key="searchKey"
                     :alert-data="alertData"
                     :initial-page="currentPage"
@@ -89,6 +92,8 @@
 
             </div>
         </div>
+
+        <flash></flash>
 
     </div>
 @endsection

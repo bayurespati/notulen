@@ -19,13 +19,20 @@ Route::get('/', function () {
     return view('auth.login');
 })->middleware('guest');
 
-Route::get('/projects', function () {
-    return view('projects.index');
-})->name('project.list');
+Route::group([
+    'prefix' => 'projects',
+    'middleware' => ['auth', 'activated']
+], function () {
+    
+    Route::get('/', function() {
+        return view('projects.index');
+    })->name('project.list');
+
+});
 
 Route::group([
     'prefix' => 'data_master',
-    'namespace' => 'Data',
+    'middleware' => ['auth', 'activated']
 ], function () {
 
     Route::get('/users', function() {

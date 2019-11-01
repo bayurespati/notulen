@@ -1,81 +1,133 @@
-@extends('layouts.guest')
+@extends('layouts.master')
 
 @push('title')
-    <title>Notulen App - Register</title>
+<title>Registrasi</title>
+@endpush
+
+@push('additional_css')
+<style>
+    /*body {*/
+        /*background: url('{{ asset('img/insert background image here') }}');*/
+    /*}*/
+    .splash-container {
+        width: 400px;
+    }
+</style>
 @endpush
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+    <div class="mai-wrapper mai-sign-up">
+        <div class="main-content container">
+            <div class="splash-container row">
+                <div class="col-sm-12 form-message">
+                    <!-- <img src="{{ asset('img/logo.png') }}" alt="logo" class="logo-img mb-4"> -->
+                    <span class="splash-description text-center">Aplikasi Notulen</span>
+                    <span class="splash-description text-center mb-5">Prospective</span>
+                    <span class="splash-description text-center mb-5">Daftarkan akun anda</span>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                    @include('partials.flash')
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                    <form class="sign-up-form" method="POST" action="{{ url('register') }}">
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                        {{ csrf_field() }}
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon s7-user"></i>
+                                </span>
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" autocomplete="name" placeholder="Nama Lengkap*" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon s7-mail"></i>
+                                </span>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email*">
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon s7-user"></i>
+                                </span>
+                                <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" autocomplete="address" placeholder="Alamat">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon s7-user"></i>
+                                </span>
+                                <input id="current_position" type="text" class="form-control" name="current_position" value="{{ old('current_position') }}" autocomplete="current_position" placeholder="Jabatan">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon s7-phone"></i>
+                                </span>
+                                <input id="primary_contact" type="text" class="form-control" name="primary_contact" value="{{ old('primary_contact') }}" autocomplete="primary_contact" placeholder="Kontak Utama*">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon s7-phone"></i>
+                                </span>
+                                <input id="secondary_contact" type="text" class="form-control" name="secondary_contact" value="{{ old('secondary_contact') }}" autocomplete="secondary_contact" placeholder="Kontak Sekunder">
+                            </div>
+                        </div> 
+                        <div class="form-group inline row">
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon s7-lock"></i>
                                     </span>
-                                @enderror
+                                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" autocomplete="new-password">
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                            <div class="col-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="icon s7-lock"></i>
                                     </span>
-                                @enderror
+                                    <input id="password-confirmation" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" placeholder="Konfirmasi*">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                        @if(count($errors))
+                            @foreach($errors->all() as $error)
+                                <div role="alert" class="alert alert-dark alert-danger alert-dismissible">
+                                    <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                                        <span aria-hidden="true" class="s7-close"></span>
+                                    </button>
+                                    {{--<span class="icon s7-less"></span>--}}
+                                    <span>{{ $error }}</span>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                </div>
+                            @endforeach
+                        @endif
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group sign-up-submit">
+                            <button data-dismiss="modal" type="submit" class="btn btn-lg btn-primary btn-block">Daftar
+                            </button>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                        <p class="conditions">Pendaftaran memerlukan persetujuan admin</p>
 
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
                     </form>
+
+                    <span class="alternative-message text-center mt-4">Sudah memiliki akun? <a href="{{ route('login') }}">Login</a>
+
+                    <div class="out-links"><a href="http://aurasoft.co">© {{ date('Y') }} Prospective</a></div>
+
+                    <p>{{ $errors }}</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

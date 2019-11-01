@@ -7,7 +7,7 @@
             <details-delete
                     :row-data="rowData"
                     :table-columns="tableColumns"
-                    :count="count"
+                    @show-modal="showModal"
                     @set-to-confirm="setDisplayFor"
                     @set-to-edit="setDisplayFor"
             ></details-delete>
@@ -18,7 +18,7 @@
             <edit
                     :row-data="rowData"
                     :table-columns="tableColumns"
-                    :count="count"
+                    :api-path="apiPath"
                     @set-to-data="setDisplayFor"
                     @set-notification="setNotification"
             ></edit>
@@ -30,6 +30,7 @@
                     :id="rowData.id"
                     :msg="deleteMessage"
                     :span="span"
+                    :api-path="apiPath"
                     @set-to-data="setDisplayFor"
                     @delete-from-root-array="editRootArray"
             ></confirm-delete>
@@ -83,7 +84,12 @@
             span: {
                 type: Number,
                 default: 0
-            }
+            },
+
+            apiPath: {
+                type: String,
+                default: ''
+            },
         },
 
         data: function () {
@@ -94,26 +100,22 @@
         },
 
         computed: {
-            count(){
-                return Math.floor(Math.random() * (10));
-            },
-
             deleteMessage(){
                 let str = '';
-                let count = 0;
+                let columnCount = 0;
                 let vm = this;
 
                 this.tableColumns.map(function (column) {
                     if(column.deleteMsg === true){
-                        count++;
+                        columnCount++;
 
-                        str += count > 1
+                        str += columnCount > 1
                             ? ', ' + vm.rowData[column.name]
                             : vm.rowData[column.name];
                     }
                 });
 
-                return str + ' telah terhapus.';
+                return 'Anda akan menghapus ' + str;
             },
         },
 
@@ -126,6 +128,10 @@
         methods: {
             setDisplayFor(value){
                 this.displayFor = value;
+            },
+
+            showModal(modalName) {
+                this.$emit('show-modal', [modalName, this.rowData]);
             },
 
             setNotification(response){

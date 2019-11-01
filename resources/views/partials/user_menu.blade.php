@@ -2,7 +2,7 @@
     <li class="dropdown nav-item">
         <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="dropdown-toggle nav-link">
             <img src="">
-            <span class="user-name">USER NAME</span>
+            <span class="user-name">{{ auth()->user()->name }}</span>
             <span class="angle-down s7-angle-down"></span>
         </a>
         <div role="menu" class="dropdown-menu">
@@ -17,7 +17,7 @@
                 Log Out
             </a>
 
-            <form id="logout-form" action="#" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
         </div>

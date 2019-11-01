@@ -1,4 +1,5 @@
 import ItemList from '../../../../components/master/item/item/ItemList.vue';
+import Flash from '../../../../components/global/Flash.vue';
 
 
 new Vue({
@@ -10,7 +11,8 @@ new Vue({
     },
 
     components: {
-		ItemList
+		ItemList,
+		Flash
     },
 
     methods: {

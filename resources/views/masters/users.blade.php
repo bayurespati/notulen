@@ -42,15 +42,80 @@
 	</nav>
 	<!-- END OF TOPNAV -->
 
-    <div class="mai-wrapper">
+    <div class="mai-wrapper" id="user">
 
     	<!-- START OF NAVBAR -->
     	@include('partials.navbar')
     	<!-- ENF OF NAVBAR -->
 
-        <div id="user" class="main-content container">
-            <user-list></user-list>
+        <div class="main-content container">
+            <edit-active-user-modal :show-modal="editActiveUserModal"
+                :api-path="apiPath"
+                :edited-data="editedData"
+                :company-array="companyArray"
+                @set-alert-flag="alertData = $event"
+                @set-show-edit-active-user-modal-to-false="hideEditActiveUserModal">
+            </edit-active-user-modal>
+
+            <edit-inactive-user-modal :show-modal="editInactiveUserModal"
+                :api-path="apiPath"
+                :edited-data="editedData"
+                :company-array="companyArray"
+                @set-alert-flag="alertData = $event"
+                @set-show-edit-inactive-user-modal-to-false="hideEditInactiveUserModal">
+            </edit-inactive-user-modal>
+
+            <div class="col-sm-12">
+                
+                <!-- START OF PANEL -->
+                <div class="panel panel-default panel-table">
+                    
+                    <!-- START OF PANEL HEADER -->
+                    <user-header 
+                    :api-path="apiPath"
+                    :is-active="isActive"
+                    :company-array="companyArray"
+                    @set-search="setSearch"
+                    @set-active-state="setActiveFlag"
+                    @set-alert-flag="alertData = $event"
+                    >
+                    </user-header>
+                    <!-- END OF PANEL HEADER -->
+
+                    <!-- START OF PANEL BODY -->
+                    <personalised-table 
+                    :active-table-columns="activeTableColumns"
+                    :inactive-table-columns="inactiveTableColumns"
+                    :is-active="isActive"
+                    :test-array="testArray"
+                    :initial-sort="initialSort"
+                    :nullable="nullable"
+                    :api-path="apiPath"
+                    :search-key="searchKey"
+                    :alert-data="alertData"
+                    :initial-page="currentPage"
+                    :per-page="perPage"
+                    @set-modal-to-show="showModal"
+                    @total-results-changed="totalResults = $event">
+                    </personalised-table>
+                    <!-- END OF PANEL BODY -->
+
+                </div>
+                <!-- END OF PANEL -->
+
+                <!-- START OF PAGINATION -->
+                <pagination 
+                :current="currentPage"
+                :total="totalResults"
+                :per-page="perPage"
+                @page-changed="pageChanged">
+                </pagination>
+                <!-- END OF PAGINATION -->
+
+            </div>
         </div>
+
+        <flash></flash>
 
     </div>
 @endsection

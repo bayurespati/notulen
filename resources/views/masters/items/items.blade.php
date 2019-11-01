@@ -42,15 +42,17 @@
 	</nav>
 	<!-- END OF TOPNAV -->
 
-    <div class="mai-wrapper">
+    <div class="mai-wrapper" id="item">
 
     	<!-- START OF NAVBAR -->
     	@include('partials.navbar')
     	<!-- ENF OF NAVBAR -->
 
-        <div id="item" class="main-content container">
+        <div class="main-content container">
             <item-list></item-list>
         </div>
+
+        <flash></flash>
 
     </div>
 @endsection

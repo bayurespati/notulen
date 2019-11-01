@@ -8,7 +8,8 @@
                 <span class="title">Tambah <strong class="font-weight-bold">Finishing Deskriptif </strong> Baru</span>
             </div>
 
-            <div class="col-sm-12 d-flex justify-content-around form-group">
+            <div class="col-sm-12 d-flex justify-content-around form-group"
+                :class="errors.name ? 'has-danger' : ''">
                 <div class="col-sm-3 text-right">
                     <label for="finishing_name"
                            class="form-control-label panel-font-small">
@@ -23,6 +24,10 @@
                            v-model="finishingData.name"
                            @keyup.enter="addFinishing"
                     >
+
+                    <form-error v-if="errors.name"
+                                :error="errors.name"
+                    ></form-error>
                 </div>
             </div>
 
@@ -47,12 +52,19 @@
 </template>
 
 <script>
+    import FormError from '../../../global/FormError.vue';
+    
     export default {
+        components: {
+          FormError
+        },
+
         data: function () {
             return {
                 finishingData: {
                     name: ''
                 },
+                errors: {}
             }
         },
 
@@ -60,30 +72,74 @@
             tambahFlag: {
                 type: Boolean,
                 default: false
-            }
+            },
+
+            apiPath: {
+                type: String,
+                default: ''
+            },
         },
 
         methods: {
             addFinishing(){
                 const vm = this;
 
-                // axios.post('/api/..', {
-                //     
-                // })
-                //     .then(function (response) {
-                //         vm.resetForm();
-                //         vm.$emit('set-alert-flag', [true, response]);
-                //     })
-                //     .catch(function (error) {
-                //     })
+                if(this.apiPath == "insert api path here"){
+                    const testAdd = {
+                        data: {
+                            'content': this.finishingData,
+                            'action': 'add',
+                            'type': 'success',
+                            'msg': 'Entri telah berhasil ditambah!'
+                        }
+                    }
+        
+                    this.$emit('set-alert-flag', [true, testAdd]);
+                    this.resetForm();
+                    flash('Entri telah berhasil ditambah!');
+                }
+                else {
+                    const vm = this;
+                    axios.post('/api/' + this.apiPath, this.finishingData)
+                    .then(function (response) {
+                        vm.$emit('set-alert-flag', [true, response]);
+                        vm.resetForm();
+                        flash('Entri telah berhasil ditambah!');
+                    })
+                    .catch(function (error) {
+                        vm.cleanErrors();
+                        vm.fillErrors(error);
+                        flash('Ups, terjadi masalah!', 'danger');
+                    })
+                }
             },
 
             resetForm(){
                 this.finishingData.name = '';
+
+                this.cleanErrors();
+            },
+
+            cleanErrors(){
+                this.errors = {};
+            },
+
+            fillErrors(errorMessages){
+                Object.keys(errorMessages).forEach(key => {
+                    let message = "";
+
+                    errorMessages[key].forEach(value => {
+                        message = message + value + " ";
+                    });
+
+                    errorMessages[key] = message;
+                });
+                this.errors = errorMessages;
             },
 
             setTambahFlag(){
                 this.$emit('set-tambah-flag', false);
+                this.resetForm();
             }
         }
     };
