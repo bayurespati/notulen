@@ -622,32 +622,6 @@ __webpack_require__.r(__webpack_exports__);
           flash('Ups, terjadi masalah!', 'danger');
         });
       }
-    },
-    resetForm: function resetForm() {
-      this.perusahaanData.name = '';
-      this.perusahaanData.city = '';
-      this.perusahaanData.address = '';
-      this.perusahaanData.email = '';
-      this.perusahaanData.primary_contact = '';
-      this.perusahaanData.secondary_contact = '';
-      this.cleanErrors();
-    },
-    cleanErrors: function cleanErrors() {
-      this.errors = {};
-    },
-    fillErrors: function fillErrors(errorMessages) {
-      Object.keys(errorMessages).forEach(function (key) {
-        var message = "";
-        errorMessages[key].forEach(function (value) {
-          message = message + value + " ";
-        });
-        errorMessages[key] = message;
-      });
-      this.errors = errorMessages;
-    },
-    setTambahFlag: function setTambahFlag() {
-      this.$emit('set-tambah-flag', false);
-      this.resetForm();
     }
   }
 });
@@ -5892,7 +5866,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/company/main.js */"./resources/assets/js/vue-instances/master/company/main.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/company/main.js */"./resources/assets/js/vue-instances/master/company/main.js");
 
 
 /***/ })

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DiscussedItem;
 use Illuminate\Http\Request;
+use App\Http\Requests\DiscussedItemRequest;
 
 class DiscussedItemController extends Controller
 {
@@ -20,7 +21,7 @@ class DiscussedItemController extends Controller
      * Store a newly created resource in storage.
      *
      */
-    public function store(Request $request)
+    public function store(DiscussedItemRequest $request)
     {
         DiscussedItem::create($request->all());
 
@@ -31,18 +32,19 @@ class DiscussedItemController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, DiscussedItem $discussedItem)
+    public function update(DiscussedItemRequest $request, DiscussedItem $discussedItem)
     {
         DiscussedItem::where('id', $discussedItem->id)
             ->update([
-                'item_id'      => $request->item_id,
-                'meeting_id'   => $request->meeting_id,
-                'qty'          => $request->qty,
-                'diameter'     => $request->diameter,
-                'dimension'    => $request->dimension,
-                'width'        => $request->width,
-                'height'       => $request->height,
                 'general_note' => $request->general_note
+                'meeting_id'   => $request->meeting_id,
+                'dimension'    => $request->dimension,
+                'diameter'     => $request->diameter,
+                'item_id'      => $request->item_id,
+                'height'       => $request->height,
+                'width'        => $request->width,
+                'qty'          => $request->qty,
+                
             ]);
 
         return response()->json('Success edit discussed item', 200);

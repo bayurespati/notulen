@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use Illuminate\Http\Request;
+use App\Http\Requests\ItemRequest;
 
 class ItemController extends Controller
 {
@@ -20,7 +21,7 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      *
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
         Item::create($request->all());
 
@@ -31,7 +32,7 @@ class ItemController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, Item $item)
+    public function update(ItemRequest $request, Item $item)
     {
         Item::where('id', $item->id)
             ->update([

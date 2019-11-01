@@ -17,4 +17,8 @@ class MsRoom extends Model
     	'code',
     	'name'
     ];
+
+    public function rooms(){
+        return $this->hasMany('App\Room', 'ms_room_id');
+    }
 }

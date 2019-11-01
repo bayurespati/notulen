@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\MsRoom;
 use Illuminate\Http\Request;
+use App\Http\Requests\MsRoomRequest;
 
 class MsRoomController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
      */
     public function index()
     {
@@ -18,8 +20,9 @@ class MsRoomController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
      */
-    public function store(Request $request)
+    public function store(MsRoomRequest $request)
     {
         MsRoom::create($request->all());
 
@@ -28,8 +31,9 @@ class MsRoomController extends Controller
 
     /**
      * Display the specified resource.
+     *
      */
-    public function update(Request $request, MsRoom $msRoom)
+    public function update(MsRoomRequest $request, MsRoom $msRoom)
     {
         MsRoom::where('id', $msRoom->id)
             ->update([
@@ -42,6 +46,7 @@ class MsRoomController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
      */
     public function destroy(MsRoom $msRoom)
     {

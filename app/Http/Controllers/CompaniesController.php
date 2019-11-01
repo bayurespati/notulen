@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Companies;
 use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
 
 class CompaniesController extends Controller
 {
@@ -20,7 +21,7 @@ class CompaniesController extends Controller
      * Store a newly created resource in storage.
      *
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         Companies::create($request->all());
 
@@ -31,17 +32,17 @@ class CompaniesController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, Companies $company)
+    public function update(CompanyRequest $request, Companies $company)
     {
 
         Companies::where('id', $company->id)
             ->update([
-                'name'              => $request->name,
-                'city'              => $request->city,
+                'secondary_contact' => $request->secondary_contact,
+                'primary_contact'   => $request->primary_contact,
                 'address'           => $request->address,
                 'email'             => $request->email,
-                'primary_contact'   => $request->primary_contact,
-                'secondary_contact' => $request->secondary_contact
+                'name'              => $request->name,
+                'city'              => $request->city,
             ]);
 
         return response()->json('Success update company',200);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\MsItemType;
 use Illuminate\Http\Request;
+use App\Http\Requests\MsItemTypeRequest;
 
 class MsItemTypeController extends Controller
 {
@@ -20,7 +21,7 @@ class MsItemTypeController extends Controller
      * Store a newly created resource in storage.
      *
      */
-    public function store(Request $request)
+    public function store(MsItemTypeRequest $request)
     {
         MsItemType::create($request->all());
 
@@ -31,7 +32,7 @@ class MsItemTypeController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, MsItemType $msItemType)
+    public function update(MsItemTypeRequest $request, MsItemType $msItemType)
     {
         MsItemType::where('id', $msItemType->id)
             ->update([
