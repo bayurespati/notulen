@@ -26,15 +26,8 @@ new Vue({
 
         nullable: [],
 
-    	testArray: [ //only used if apiPath is 'insert api path here'
-    		{
-    			id: 1,
-    			name: 'Keramik Putih',
-    		}
-    	],
-
     	initialSort: 'name',
-    	apiPath: 'insert api path here',
+    	apiPath: 'msDescriptiveFinishing',
     	searchKey: '',
     	alertData: [],
 

@@ -107,35 +107,17 @@
         methods: {
             addRoom(){
                 const vm = this;
-
-                if(this.apiPath == "insert api path here"){
-                    const testAdd = {
-                        data: {
-                            'content': this.ruanganData,
-                            'action': 'add',
-                            'type': 'success',
-                            'msg': 'Entri telah berhasil ditambah!'
-                        }
-                    }
-        
-                    this.$emit('set-alert-flag', [true, testAdd]);
-                    this.resetForm();
+                axios.post('/api/' + this.apiPath, this.ruanganData)
+                .then(function (response) {
+                    vm.$emit('set-alert-flag', [true, response]);
+                    vm.resetForm();
                     flash('Entri telah berhasil ditambah!');
-                }
-                else {
-                    const vm = this;
-                    axios.post('/api/' + this.apiPath, this.ruanganData)
-                    .then(function (response) {
-                        vm.$emit('set-alert-flag', [true, response]);
-                        vm.resetForm();
-                        flash('Entri telah berhasil ditambah!');
-                    })
-                    .catch(function (error) {
-                        vm.cleanErrors();
-                        vm.fillErrors(error);
-                        flash('Ups, terjadi masalah!', 'danger');
-                    })
-                }
+                })
+                .catch(function (error) {
+                    vm.cleanErrors();
+                    vm.fillErrors(error.response.data.errors);
+                    flash('Ups, terjadi masalah!', 'danger');
+                })
             },
 
             resetForm(){

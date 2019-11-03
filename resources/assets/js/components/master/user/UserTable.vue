@@ -209,33 +209,22 @@
             fetchForRootArray() {
                 let vm = this;
 
-                // for testing purpose
-                if(this.apiPath == 'insert api path here'){
-                    this.rootArray = this.testArray.map(function (item) {
+                axios.get('/api/' + this.apiPath)
+                .then(response => {
+                    this.rootArray = response.data.map(function (item) {
                         return vm.nullable.length > 0
                             ? vm.checkForNulls(item)
                             : item;
-                        });
+                    });
 
                     this.sortBasedOn(this.sortKey);
-                }
-                else
-                {
-                    axios.get('/api/' + this.apiPath)
-                    .then(response => {
-                        this.rootArray = response.data.map(function (item) {
-                            return vm.nullable.length > 0
-                                ? vm.checkForNulls(item)
-                                : item;
-                        });
-
-                        this.sortBasedOn(this.sortKey);
-                    });
-                }
+                });
             },
 
             sortBasedOn(key){
                 this.sortKey = key;
+
+                console.log(this.rootArray);
 
                 this.rootArray.sort(function (a, b) {
                     let itemA = typeof a[key] === 'string' ? a[key].toLowerCase() : a[key];

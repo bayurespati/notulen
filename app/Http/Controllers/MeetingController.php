@@ -22,9 +22,14 @@ class MeetingController extends Controller
      */
     public function store(MeetingRequest $request)
     {
-        Meeting::create($request->all());
+        $meeting = Meeting::create($request->all());
 
-        return response()->json('Success add meeting',200);
+        return response()->json([
+            'content' => $meeting, 
+            'action' => 'add', 
+            'type' => 'success',
+            'msg' => 'Success add meeting'
+        ]);
     }
 
     /**
@@ -38,7 +43,7 @@ class MeetingController extends Controller
                 'general_note'  => $request->general_note,
                 'planned_date'  => $request->planned_date,
                 'actual_date'   => $request->actual_date,
-                'project_id'    => $request->project_id
+                'project_id'    => $request->project_id,
                 'title'         => $request->title,
             ]);
 

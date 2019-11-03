@@ -66,47 +66,8 @@ new Vue({
 
         nullable: ['secondary_contact'],
 
-    	testArray: [ //only used if apiPath is 'insert api path here'
-    		{
-    			id: 1,
-    			name: 'Kompeni Satu',
-    			city: 'Jakarta',
-    			address: 'Kau',
-    			email: 'email@email.com',
-    			primary_contact: '123456',
-    			secondary_contact: null
-    		},
-            {
-                id: 2,
-                name: 'Kompeni Dua',
-                city: 'Makassar',
-                address: 'Yang',
-                email: 'email1@email.com',
-                primary_contact: '789123',
-                secondary_contact: '322233'
-            },
-            {
-                id: 3,
-                name: 'Company One',
-                city: 'Jakarta',
-                address: 'Paling',
-                email: 'email2@email.com',
-                primary_contact: '456789',
-                secondary_contact: null
-            },
-            {
-                id: 4,
-                name: 'Kompeni Tiga',
-                city: 'Bandung',
-                address: 'Sejiwa',
-                email: 'email3@email.com',
-                primary_contact: '654321',
-                secondary_contact: '192837'
-            },
-    	],
-
     	initialSort: 'name',
-    	apiPath: 'insert api path here',
+    	apiPath: 'companies',
     	searchKey: '',
     	alertData: [],
 

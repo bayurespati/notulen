@@ -23,9 +23,14 @@ class MsItemDetailController extends Controller
      */
     public function store(MsItemDetailRequest $request)
     {
-        MsItemDetail::create($request->all());
+        $msItemDetail =  MsItemDetail::create($request->all());
 
-        return response()->json('Success add ms item detail', 200);
+        return response()->json([
+            'content' => $msItemDetail,
+            'action' => 'add', 
+            'type' => 'success',
+            'msg' => 'Success add ms item detail'
+        ]);
     }
 
     /**
@@ -34,12 +39,15 @@ class MsItemDetailController extends Controller
      */
     public function update(MsItemDetailRequest $request, MsItemDetail $msItemDetail)
     {
-        MsItemDetail::where('id', $msItemDetail->id)
-            ->update([
-                'name' => $request->name,
-            ]);
+        $msItemDetail->name = $request->name;
+        $msItemDetail->update();
 
-        return response()->json('Success update ms item detail', 200);
+        return response()->json([
+            'content' => $msItemDetail,
+            'action' => 'edit', 
+            'type' => 'success',
+            'msg' => 'Success update ms item detail'
+        ]);
     }
 
     /**

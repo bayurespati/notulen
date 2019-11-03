@@ -48,12 +48,15 @@
                 else {
                     const vm = this;
 
-                    axios.delete('/api/' + this.apiPath + "/" + this.id)
+                    axios.delete('/api/' + this.apiPath + '/' + this.id)
                     .then(function () {
-                        this.$emit('delete-from-root-array', ['delete', this.id]);
+                        vm.$emit('delete-from-root-array', ['delete', vm.id]);
                         flash('Entri telah berhasil dihapus');
                     })
                     .catch(function (error) {
+
+                        console.log(error);
+
                         flash('Ups, terjadi masalah!', 'danger');
                     });;
                 }

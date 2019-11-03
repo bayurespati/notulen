@@ -24,9 +24,14 @@ class MsRoomController extends Controller
      */
     public function store(MsRoomRequest $request)
     {
-        MsRoom::create($request->all());
+        $data = MsRoom::create($request->all());
 
-        return response()->json('Success add room', 200);
+        return response()->json([
+            'content' => $data, 
+            'action' => 'add', 
+            'type' => 'success',
+            'msg' => 'Success add room'
+        ]);
     }
 
     /**
@@ -35,13 +40,16 @@ class MsRoomController extends Controller
      */
     public function update(MsRoomRequest $request, MsRoom $msRoom)
     {
-        MsRoom::where('id', $msRoom->id)
-            ->update([
-                'code' => $request->code,
-                'name' => $request->name,
-            ]);
+        $msRoom->name = $request->name;
+        $msRoom->code = $request->code;
+        $msRoom->update();
 
-        return response()->json('Success update room',200);
+        return response()->json([
+            'content' => $msRoom, 
+            'action' => 'edit', 
+            'type' => 'success',
+            'msg' => 'Success update room'
+        ]);
     }
 
     /**

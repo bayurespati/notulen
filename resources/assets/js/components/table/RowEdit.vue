@@ -115,51 +115,22 @@
             },
 
             editRow(){
-                // SIMULATE ERROR IN COMPANY LIST PAGE
-                // const errorTest = {
-                     // "name":["The name field is required.", "Test second error.", "Test third error."],
-                     // "city":["The email field is required."],
-                     // "address":["The password field is required."],
-                     // "email":["The address field is required."],
-                     // "primary_contact":["The current position field is required."],
-                     // "secondary_contact":["The primary contact field is required."]
-                // };
-
-                // this.cleanErrors();
-                // this.fillErrors(errorTest);
-
-                //  COMMENT THE REST OF THIS METHOD TO SIMULATE ERROR IN COMPANY LIST PAGE
-
                 const vm = this;
 
                 if (this.isInputAndDefaultTheSame) {
                     this.setToData();
                 } 
                 else {
-                    if(this.apiPath == 'insert api path here'){
-                        const testUpdate = {
-                            data: {
-                                'content': this.rowContent,
-                                'action': 'edit',
-                                'type': 'success',
-                                'msg': 'Entri telah berhasil diperbarui!'
-                            }
-                        }
-                        vm.$emit('set-notification', testUpdate);
+                    axios.patch('/api/' + this.apiPath + "/" + this.rowContent.id, this.rowContent)
+                    .then(function (response) {
+                        vm.$emit('set-notification', response);
                         flash('Entri telah berhasil diperbarui');
-                    }
-                    else {
-                        axios.patch('/api/' + this.apiPath + "/" + this.rowContent.id, this.rowContent)
-                        .then(function (response) {
-                            vm.$emit('set-notification', response);
-                            flash('Entri telah berhasil diperbarui');
-                        })
-                        .catch(function (error) {
-                            vm.cleanErrors();
-                            vm.fillErrors(error.response.data);
-                            flash('Ups, terjadi masalah!', 'danger');
-                        });
-                    }
+                    })
+                    .catch(function (error) {
+                        vm.cleanErrors();
+                        vm.fillErrors(error.response.data.errors);
+                        flash('Ups, terjadi masalah!', 'danger');
+                    });
                 }
             },
 

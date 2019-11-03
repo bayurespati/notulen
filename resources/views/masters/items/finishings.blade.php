@@ -65,7 +65,6 @@
                     <!-- START OF PANEL BODY -->
                     <personalised-table 
                     :table-columns="tableColumns"
-                    :test-array="testArray"
                     :initial-sort="initialSort"
                     :nullable="nullable"
                     :api-path="apiPath"

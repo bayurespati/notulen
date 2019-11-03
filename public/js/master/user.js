@@ -1931,25 +1931,18 @@ __webpack_require__.r(__webpack_exports__);
     fetchForRootArray: function fetchForRootArray() {
       var _this = this;
 
-      var vm = this; // for testing purpose
-
-      if (this.apiPath == 'insert api path here') {
-        this.rootArray = this.testArray.map(function (item) {
+      var vm = this;
+      axios.get('/api/' + this.apiPath).then(function (response) {
+        _this.rootArray = response.data.map(function (item) {
           return vm.nullable.length > 0 ? vm.checkForNulls(item) : item;
         });
-        this.sortBasedOn(this.sortKey);
-      } else {
-        axios.get('/api/' + this.apiPath).then(function (response) {
-          _this.rootArray = response.data.map(function (item) {
-            return vm.nullable.length > 0 ? vm.checkForNulls(item) : item;
-          });
 
-          _this.sortBasedOn(_this.sortKey);
-        });
-      }
+        _this.sortBasedOn(_this.sortKey);
+      });
     },
     sortBasedOn: function sortBasedOn(key) {
       this.sortKey = key;
+      console.log(this.rootArray);
       this.rootArray.sort(function (a, b) {
         var itemA = typeof a[key] === 'string' ? a[key].toLowerCase() : a[key];
         var itemB = typeof b[key] === 'string' ? b[key].toLowerCase() : b[key];
@@ -2218,10 +2211,11 @@ __webpack_require__.r(__webpack_exports__);
         flash('Entri telah berhasil dihapus');
       } else {
         var vm = this;
-        axios["delete"]('/api/' + this.apiPath + "/" + this.id).then(function () {
-          this.$emit('delete-from-root-array', ['delete', this.id]);
+        axios["delete"]('/api/' + this.apiPath + '/' + this.id).then(function () {
+          vm.$emit('delete-from-root-array', ['delete', vm.id]);
           flash('Entri telah berhasil dihapus');
         })["catch"](function (error) {
+          console.log(error);
           flash('Ups, terjadi masalah!', 'danger');
         });
         ;
@@ -2421,44 +2415,19 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('set-to-data', 'data');
     },
     editRow: function editRow() {
-      // SIMULATE ERROR IN COMPANY LIST PAGE
-      // const errorTest = {
-      // "name":["The name field is required.", "Test second error.", "Test third error."],
-      // "city":["The email field is required."],
-      // "address":["The password field is required."],
-      // "email":["The address field is required."],
-      // "primary_contact":["The current position field is required."],
-      // "secondary_contact":["The primary contact field is required."]
-      // };
-      // this.cleanErrors();
-      // this.fillErrors(errorTest);
-      //  COMMENT THE REST OF THIS METHOD TO SIMULATE ERROR IN COMPANY LIST PAGE
       var vm = this;
 
       if (this.isInputAndDefaultTheSame) {
         this.setToData();
       } else {
-        if (this.apiPath == 'insert api path here') {
-          var testUpdate = {
-            data: {
-              'content': this.rowContent,
-              'action': 'edit',
-              'type': 'success',
-              'msg': 'Entri telah berhasil diperbarui!'
-            }
-          };
-          vm.$emit('set-notification', testUpdate);
+        axios.patch('/api/' + this.apiPath + "/" + this.rowContent.id, this.rowContent).then(function (response) {
+          vm.$emit('set-notification', response);
           flash('Entri telah berhasil diperbarui');
-        } else {
-          axios.patch('/api/' + this.apiPath + "/" + this.rowContent.id, this.rowContent).then(function (response) {
-            vm.$emit('set-notification', response);
-            flash('Entri telah berhasil diperbarui');
-          })["catch"](function (error) {
-            vm.cleanErrors();
-            vm.fillErrors(error.response.data);
-            flash('Ups, terjadi masalah!', 'danger');
-          });
-        }
+        })["catch"](function (error) {
+          vm.cleanErrors();
+          vm.fillErrors(error.response.data.errors);
+          flash('Ups, terjadi masalah!', 'danger');
+        });
       }
     },
     cleanErrors: function cleanErrors() {
@@ -8950,100 +8919,8 @@ new Vue({
     editInactiveUserModal: false,
     nullable: ['company', 'secondary_contact'],
     companyArray: ['Kompeni Satu', 'Kompeni Dua', 'Kompeni Tiga'],
-    testArray: [//only used if apiPath is 'insert api path here'
-    {
-      id: 1,
-      name: 'User Pertama',
-      email: 'pertama@pertama.com',
-      address: 'Alamat Pertama',
-      current_position: 'Desainer',
-      primary_contact: '123456789',
-      secondary_contact: null,
-      company: 'Kompeni Satu',
-      isActive: true
-    }, {
-      id: 2,
-      name: 'User Kedua',
-      email: 'kedua@kedua.com',
-      address: 'Alamat Kedua',
-      current_position: 'Ketua',
-      primary_contact: '23414432423',
-      secondary_contact: '321343234',
-      company: null,
-      isActive: false
-    }, {
-      id: 3,
-      name: 'User Ketiga',
-      email: 'ketiga@ketiga.com',
-      address: 'Alamat Ketiga',
-      current_position: 'Kepala',
-      primary_contact: '2198360128763',
-      secondary_contact: null,
-      company: 'Kompeni Kedua',
-      isActive: true
-    }, {
-      id: 4,
-      name: 'User Keempat',
-      email: 'keempat@keempat.com',
-      address: 'Alamat Keempat',
-      current_position: 'Kepala Geng',
-      primary_contact: '2382137123',
-      secondary_contact: '213123123',
-      company: null,
-      isActive: false
-    }, {
-      id: 5,
-      name: 'User Kelima',
-      email: 'kelima@kelima.com',
-      address: 'Alamat Kelima',
-      current_position: 'Anggota Pengawas',
-      primary_contact: '127621637213',
-      secondary_contact: '1231273',
-      company: null,
-      isActive: false
-    }, {
-      id: 6,
-      name: 'User Keenam',
-      email: 'keenam@keenam.com',
-      address: 'Alamat Keenam',
-      current_position: 'Pengawas Pemakan Segala',
-      primary_contact: '121231241332',
-      secondary_contact: '23123123',
-      company: 'Kompeni Satu',
-      isActive: true
-    }, {
-      id: 7,
-      name: 'User Ketujuh',
-      email: 'ketujuh@ketujuh.com',
-      address: 'Alamat Ketujuh',
-      current_position: 'Penyanyi',
-      primary_contact: '12131241513',
-      secondary_contact: null,
-      company: 'Kompeni Tiga',
-      isActive: true
-    }, {
-      id: 8,
-      name: 'User Kedelepan',
-      email: 'kedelepan@kedelapan',
-      address: 'Alamat Kedelepan',
-      current_position: 'Drummer',
-      primary_contact: '23124133123123',
-      secondary_contact: null,
-      company: 'Kompeni Dua',
-      isActive: true
-    }, {
-      id: 9,
-      name: 'User Kesembilan',
-      email: 'kesembilan@kesembilan',
-      address: 'Alamat Kesembilan',
-      current_position: 'Gitaris',
-      primary_contact: '3126317254',
-      secondary_contact: '21936918264',
-      company: null,
-      isActive: false
-    }],
     initialSort: 'name',
-    apiPath: 'insert api path here',
+    apiPath: 'user',
     searchKey: '',
     alertData: [],
     isActive: true,

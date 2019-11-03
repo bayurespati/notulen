@@ -36,7 +36,7 @@ class DiscussedItemController extends Controller
     {
         DiscussedItem::where('id', $discussedItem->id)
             ->update([
-                'general_note' => $request->general_note
+                'general_note' => $request->general_note,
                 'meeting_id'   => $request->meeting_id,
                 'dimension'    => $request->dimension,
                 'diameter'     => $request->diameter,

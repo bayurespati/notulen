@@ -491,35 +491,15 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     addRoom: function addRoom() {
       var vm = this;
-      if (this.apiPath == "insert api path here") {
-        var testAdd = {
-          data: {
-            'content': this.ruanganData,
-            'action': 'add',
-            'type': 'success',
-            'msg': 'Entri telah berhasil ditambah!'
-          }
-        };
-        this.$emit('set-alert-flag', [true, testAdd]);
-        this.resetForm();
+      axios.post('/api/' + this.apiPath, this.ruanganData).then(function (response) {
+        vm.$emit('set-alert-flag', [true, response]);
+        vm.resetForm();
         flash('Entri telah berhasil ditambah!');
-      } else {
-        var _vm = this;
-
-        axios.post('/api/' + this.apiPath, this.ruanganData).then(function (response) {
-          _vm.$emit('set-alert-flag', [true, response]);
-
-          _vm.resetForm();
-
-          flash('Entri telah berhasil ditambah!');
-        })["catch"](function (error) {
-          _vm.cleanErrors();
-
-          _vm.fillErrors(error);
-
-          flash('Ups, terjadi masalah!', 'danger');
-        });
-      }
+      })["catch"](function (error) {
+        vm.cleanErrors();
+        vm.fillErrors(error.response.data.errors);
+        flash('Ups, terjadi masalah!', 'danger');
+      });
     },
     resetForm: function resetForm() {
       this.ruanganData.code = '';
@@ -782,10 +762,11 @@ __webpack_require__.r(__webpack_exports__);
         flash('Entri telah berhasil dihapus');
       } else {
         var vm = this;
-        axios["delete"]('/api/' + this.apiPath + "/" + this.id).then(function () {
-          this.$emit('delete-from-root-array', ['delete', this.id]);
+        axios["delete"]('/api/' + this.apiPath + '/' + this.id).then(function () {
+          vm.$emit('delete-from-root-array', ['delete', vm.id]);
           flash('Entri telah berhasil dihapus');
         })["catch"](function (error) {
+          console.log(error);
           flash('Ups, terjadi masalah!', 'danger');
         });
         ;
@@ -985,44 +966,19 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('set-to-data', 'data');
     },
     editRow: function editRow() {
-      // SIMULATE ERROR IN COMPANY LIST PAGE
-      // const errorTest = {
-      // "name":["The name field is required.", "Test second error.", "Test third error."],
-      // "city":["The email field is required."],
-      // "address":["The password field is required."],
-      // "email":["The address field is required."],
-      // "primary_contact":["The current position field is required."],
-      // "secondary_contact":["The primary contact field is required."]
-      // };
-      // this.cleanErrors();
-      // this.fillErrors(errorTest);
-      //  COMMENT THE REST OF THIS METHOD TO SIMULATE ERROR IN COMPANY LIST PAGE
       var vm = this;
 
       if (this.isInputAndDefaultTheSame) {
         this.setToData();
       } else {
-        if (this.apiPath == 'insert api path here') {
-          var testUpdate = {
-            data: {
-              'content': this.rowContent,
-              'action': 'edit',
-              'type': 'success',
-              'msg': 'Entri telah berhasil diperbarui!'
-            }
-          };
-          vm.$emit('set-notification', testUpdate);
+        axios.patch('/api/' + this.apiPath + "/" + this.rowContent.id, this.rowContent).then(function (response) {
+          vm.$emit('set-notification', response);
           flash('Entri telah berhasil diperbarui');
-        } else {
-          axios.patch('/api/' + this.apiPath + "/" + this.rowContent.id, this.rowContent).then(function (response) {
-            vm.$emit('set-notification', response);
-            flash('Entri telah berhasil diperbarui');
-          })["catch"](function (error) {
-            vm.cleanErrors();
-            vm.fillErrors(error.response.data);
-            flash('Ups, terjadi masalah!', 'danger');
-          });
-        }
+        })["catch"](function (error) {
+          vm.cleanErrors();
+          vm.fillErrors(error.response.data.errors);
+          flash('Ups, terjadi masalah!', 'danger');
+        });
       }
     },
     cleanErrors: function cleanErrors() {
@@ -5364,14 +5320,8 @@ new Vue({
 
     }],
     nullable: [],
-    testArray: [//only used if apiPath is 'insert api path here'
-    {
-      id: 1,
-      code: 'HV1',
-      name: 'Foyer'
-    }],
     initialSort: 'code',
-    apiPath: 'insert api path here',
+    apiPath: 'msRooms',
     searchKey: '',
     alertData: [],
     currentPage: 1,

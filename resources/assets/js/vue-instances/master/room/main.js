@@ -34,16 +34,8 @@ new Vue({
 
         nullable: [],
 
-    	testArray: [ //only used if apiPath is 'insert api path here'
-    		{
-    			id: 1,
-    			code: 'HV1',
-    			name: 'Foyer',
-    		}
-    	],
-
     	initialSort: 'code',
-    	apiPath: 'insert api path here',
+    	apiPath: 'msRooms',
     	searchKey: '',
     	alertData: [],
 

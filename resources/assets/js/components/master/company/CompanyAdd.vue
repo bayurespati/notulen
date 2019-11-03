@@ -202,49 +202,18 @@
 
         methods: {
             addCompany(){
-                // SIMULATE ERROR
-                // const errorTest = {
-                //      "name":["The name field is required.", "Test second error.", "Test third error."],
-                //      "city":["The email field is required."],
-                //      "address":["The password field is required."],
-                //      "email":["The address field is required."],
-                //      "primary_contact":["The current position field is required."],
-                //      "secondary_contact":["The primary contact field is required."]
-                // };
-
-                // this.cleanErrors();
-                // this.fillErrors(errorTest);
-
-                //  COMMENT THE REST OF THIS METHOD TO SIMULATE ERROR
-
-                if(this.apiPath == "insert api path here"){
-                    const testAdd = {
-                        data: {
-                            'content': this.perusahaanData,
-                            'action': 'add',
-                            'type': 'success',
-                            'msg': 'Entri telah berhasil ditambah!'
-                        }
-                    }
-        
-                    this.$emit('set-alert-flag', [true, testAdd]);
-                    this.resetForm();
+                const vm = this;
+                axios.post('/api/' + this.apiPath, this.perusahaanData)
+                .then(function (response) {
+                    vm.$emit('set-alert-flag', [true, response]);
+                    vm.resetForm();
                     flash('Entri telah berhasil ditambah!');
-                }
-                else {
-                    const vm = this;
-                    axios.post('/api/' + this.apiPath, this.perusahaanData)
-                    .then(function (response) {
-                        vm.$emit('set-alert-flag', [true, response]);
-                        vm.resetForm();
-                        flash('Entri telah berhasil ditambah!');
-                    })
-                    .catch(function (error) {
-                        vm.cleanErrors();
-                        vm.fillErrors(error);
-                        flash('Ups, terjadi masalah!', 'danger');
-                    })
-                }
+                })
+                .catch(function (error) {
+                    vm.cleanErrors();
+                    vm.fillErrors(error.response.data.errors);
+                    flash('Ups, terjadi masalah!', 'danger');
+                })                
             },
 
             resetForm(){

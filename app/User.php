@@ -48,6 +48,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public static function allUserJson()
+    {
+        $data = User::with(['company'])->get();
+        
+
+        $users = $data->map(function ($user){
+
+            $dataUser = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'company' => $user['company'],
+                'email' => $user->email,
+                'address' => $user->address,
+                'current_position' => $user->current_position,
+                'primary_contact' => $user->primary_contact,
+                'secondary_contact' => $user->secondary_contact,
+                'is_active' => $user->is_active,
+            ];
+
+            return $dataUser;
+        });
+
+        return $users;
+    }
 
     /**
      * Relations

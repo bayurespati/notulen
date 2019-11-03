@@ -87,7 +87,6 @@
                     :active-table-columns="activeTableColumns"
                     :inactive-table-columns="inactiveTableColumns"
                     :is-active="isActive"
-                    :test-array="testArray"
                     :initial-sort="initialSort"
                     :nullable="nullable"
                     :api-path="apiPath"

@@ -23,9 +23,14 @@ class CompaniesController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        Companies::create($request->all());
+        $company = Companies::create($request->all());
 
-        return response()->json('Success add company',200);
+        return response()->json([
+            'content' => $company,
+            'action' => 'add',
+            'type' => 'success',
+            'msg' => 'Success add company'
+        ]);
     }
 
     /**
@@ -34,18 +39,20 @@ class CompaniesController extends Controller
      */
     public function update(CompanyRequest $request, Companies $company)
     {
+        $company->secondary_contact = $request->secondary_contact;
+        $company->primary_contact = $request->primary_contact;
+        $company->address = $request->address;
+        $company->email = $request->email;
+        $company->name = $request->name;
+        $company->city = $request->city;
+        $company->update();
 
-        Companies::where('id', $company->id)
-            ->update([
-                'secondary_contact' => $request->secondary_contact,
-                'primary_contact'   => $request->primary_contact,
-                'address'           => $request->address,
-                'email'             => $request->email,
-                'name'              => $request->name,
-                'city'              => $request->city,
-            ]);
-
-        return response()->json('Success update company',200);
+        return response()->json([
+            'content' => $company, 
+            'action' => 'edit', 
+            'type' => 'success',
+            'msg' => 'Success update company'
+        ]);
     }
 
     /**
