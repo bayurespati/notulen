@@ -1,11 +1,12 @@
-import FinishingHeader from '../../../../components/master/item/finishing/FinishingHeader.vue';
+import TypeHeader from '../../../../components/master/item/type/TypeHeader.vue';
 import Flash from '../../../../components/global/Flash.vue';
 import PersonalisedTable from '../../../../components/table/Table.vue';
 import Pagination from '../../../../components/global/Pagination.vue';
 
+
 new Vue({
 
-    el: '#finishing',
+    el: '#type',
 
         data: {
     	tableColumns: [
@@ -28,7 +29,7 @@ new Vue({
         nullable: [],
 
     	initialSort: 'name',
-    	apiPath: 'msDescriptiveFinishing',
+    	apiPath: 'msItemTypes',
     	searchKey: '',
     	alertData: [],
 
@@ -49,7 +50,7 @@ new Vue({
     },
 
     components: {
-        FinishingHeader,
+        TypeHeader,
         Flash,
         PersonalisedTable,
         Pagination

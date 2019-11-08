@@ -224,8 +224,6 @@
             sortBasedOn(key){
                 this.sortKey = key;
 
-                console.log(this.rootArray);
-
                 this.rootArray.sort(function (a, b) {
                     let itemA = typeof a[key] === 'string' ? a[key].toLowerCase() : a[key];
                     let itemB = typeof b[key] === 'string' ? b[key].toLowerCase() : b[key];

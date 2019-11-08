@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <th v-for="column in tableColumns">
+        <th v-for="column in tableColumns" :class="column.name == 'aksi' ? 'text-right' : ''">
             <span v-if="column.sortable === true"
                   class="icon"
                   @click="setSortKey(column.name)">

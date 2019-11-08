@@ -45,6 +45,7 @@
                                 </a>
                                 <div role="menu" class="dropdown-menu mai-sub-nav">
                                     <a href="{{ route('item.list') }}" class="dropdown-item {{ request()->is('data_master/items/items/*') || request()->is('data_master/items/items') ? 'active': ''}}">Items</a>
+                                    <a href="{{ route('type.list') }}" class="dropdown-item {{ request()->is('data_master/items/types/*') || request()->is('data_master/items/types') ? 'active': ''}}">Type</a>
                                     <a href="{{ route('detail.list') }}" class="dropdown-item {{ request()->is('data_master/items/details/*') || request()->is('data_master/items/details') ? 'active': ''}}">Details</a>
                                     <a href="{{ route('finishing.list') }}" class="dropdown-item {{ request()->is('data_master/items/finishings/*') || request()->is('data_master/items/finishings') ? 'active': ''}}">Descriptive Finishings</a>
                                 </div>
@@ -53,6 +54,22 @@
                                 <a href="{{ route('room.list') }}" 
                                 class="nav-link {{ request()->is('data_master/rooms/*') || request()->is('data_master/rooms') ? 'active': ''}}">
                                     <span class="icon s7-crop"></span><span class="name">Rooms</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item parent">
+                        <a href="#" 
+                        role="button" 
+                        aria-expanded="false" 
+                        class="nav-link">
+                        <span class="icon s7-id"></span><span>User Roles</span></a>
+                        <ul class="mai-nav-tabs-sub mai-sub-nav nav">
+                            <li class="nav-item">
+                                <a href="#" 
+                                class="nav-link">
+                                    <span class="icon s7-users"></span>
+                                    <span class="name">User Roles</span>
                                 </a>
                             </li>
                         </ul>

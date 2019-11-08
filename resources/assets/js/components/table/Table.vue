@@ -31,6 +31,7 @@
                                      :current-page="currentPage"
                                      :span="colspan"
                                      :api-path="apiPath"
+                                     @show-modal="showModal"
                                      @edit-root-array="editRootArray"
                                 >
                                 </row>
@@ -108,7 +109,7 @@
             perPage: {
                 type: Number,
                 default: 20
-            }
+            },
         },
 
         data() {
@@ -176,6 +177,10 @@
 
             totalResults(){
                 this.$emit('total-results-changed', this.totalResults);
+            },
+
+            columns() {
+                this.sortBasedOn(this.sortKey);
             }
         },
 
@@ -233,14 +238,41 @@
                 let vm = this;
 
                 this.searchResults = this.rootArray.filter(function (item) {
-                    if (vm.searchKey.length > 0) {
-                        for (let i = 0; i < vm.columns.length; i++) {
+                    // if (vm.searchKey.length > 0) {
+                        // for (let i = 0; i < vm.columns.length; i++) {
+                            // if(Array.isArray(item[vm.columns[i]])){
+                                // return item[vm.columns[i]].count;
+                            // } 
+                            // else {
+                                // if (item[vm.columns[i]].toLowerCase().includes(value.toLowerCase())) {
+                                    // return item;
+                                // }
+                            // }
+                        // }
+                    // } 
+                    // else {
+                        // return item;
+                    // }
+
+                    for (let i = 0; i < vm.columns.length; i++) {
+                        if(Array.isArray(item[vm.columns[i]])){
+                            let matchCount = 0;
+
+                            item[vm.columns[i]].forEach(function (arrayItem, arrayIndex){
+                                if(arrayItem.toLowerCase().includes(value.toLowerCase())){
+                                    matchCount++;
+                                }
+                            })
+
+                            if(matchCount > 0){
+                                return item;
+                            }
+                        } 
+                        else {
                             if (item[vm.columns[i]].toLowerCase().includes(value.toLowerCase())) {
                                 return item;
                             }
                         }
-                    } else {
-                        return item;
                     }
                 });
 
@@ -325,6 +357,10 @@
                 }
 
                 return item;
+            },
+
+            showModal(data) { //modal name and row data
+                this.$emit('set-modal-to-show', data);
             },
 
             alertToDefault(){

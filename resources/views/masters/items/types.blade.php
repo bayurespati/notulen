@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @push('title')
-<title>Items (Items) - List</title>
+<title>Items (Types) - List</title>
 @endpush
 
 @push('additional_css')
@@ -42,34 +42,24 @@
 	</nav>
 	<!-- END OF TOPNAV -->
 
-    <div class="mai-wrapper" id="item">
+    <div class="mai-wrapper" id="type">
 
     	<!-- START OF NAVBAR -->
     	@include('partials.navbar')
     	<!-- ENF OF NAVBAR -->
 
         <div class="main-content container">
-            <edit-item-modal :show-modal="editItemModal"
-                :api-path="apiPath"
-                :edited-data="editedData"
-                :type-array="typeArray"
-                :detail-array="detailArray"
-                :finishing-array="finishingArray"
-                @set-alert-flag="alertData = $event"
-                @set-show-edit-item-modal-to-false="hideEditItemModal">
-            </edit-item-modal>
-
             <div class="col-sm-12">
                 
                 <!-- START OF PANEL -->
                 <div class="panel panel-default panel-table">
                     
                     <!-- START OF PANEL HEADER -->
-                    <item-header 
+                    <type-header 
                     :api-path="apiPath"
                     @set-alert-flag="alertData = $event"
                     @set-search="setSearch">
-                    </item-header>
+                    </type-header>
                     <!-- END OF PANEL HEADER -->
 
                     <!-- START OF PANEL BODY -->
@@ -81,9 +71,7 @@
                     :search-key="searchKey"
                     :alert-data="alertData"
                     :initial-page="currentPage"
-                    :test-array="testArray"
                     :per-page="perPage"
-                    @set-modal-to-show="showModal"
                     @total-results-changed="totalResults = $event">
                     </personalised-table>
                     <!-- END OF PANEL BODY -->
@@ -109,5 +97,5 @@
 @endsection
 
 @push('additional_js')
-<script src="{{ asset('js/master/item.js') }}"></script>
+<script src="{{ asset('js/master/type.js') }}"></script>
 @endpush

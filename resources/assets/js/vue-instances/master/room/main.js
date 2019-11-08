@@ -28,7 +28,8 @@ new Vue({
     		{
     			name: 'aksi', //action column must have 'aksi' as the name
     			columnName: 'Aksi',
-                editType: 'inline', //inline, modal, goTo
+                editType: 'inline', //inline, modal
+                extraGoToIcon: false,
     		}
     	],
 

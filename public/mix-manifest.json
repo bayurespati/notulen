@@ -1,13 +1,17 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/gallery.js": "/js/gallery.js",
     "/js/master/company.js": "/js/master/company.js",
     "/js/master/detail.js": "/js/master/detail.js",
     "/js/master/finishing.js": "/js/master/finishing.js",
     "/js/master/item.js": "/js/master/item.js",
+    "/js/master/itemDetail.js": "/js/master/itemDetail.js",
     "/js/master/room.js": "/js/master/room.js",
+    "/js/master/type.js": "/js/master/type.js",
     "/js/master/user.js": "/js/master/user.js",
     "/js/project/project.js": "/js/project/project.js",
     "/css/base.css": "/css/base.css",
     "/css/animation.css": "/css/animation.css",
+    "/css/gallery.css": "/css/gallery.css",
     "/js/base.js": "/js/base.js"
 }

@@ -1942,7 +1942,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     sortBasedOn: function sortBasedOn(key) {
       this.sortKey = key;
-      console.log(this.rootArray);
       this.rootArray.sort(function (a, b) {
         var itemA = typeof a[key] === 'string' ? a[key].toLowerCase() : a[key];
         var itemB = typeof b[key] === 'string' ? b[key].toLowerCase() : b[key];
@@ -2269,6 +2268,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -2283,6 +2288,18 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return [];
       }
+    },
+    extraGoToIcon: {
+      type: Boolean,
+      "default": false
+    },
+    extraGoToIconName: {
+      type: String,
+      "default": ''
+    },
+    goToPath: {
+      type: String,
+      "default": ''
     }
   },
   computed: {},
@@ -2295,6 +2312,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     setToConfirm: function setToConfirm() {
       this.$emit('set-to-confirm', 'confirm');
+    },
+    goTo: function goTo(path) {
+      window.location.href = location.pathname + '/' + path + '/' + this.rowData.id;
     },
     deleteRow: function deleteRow() {
       this.setToConfirm();
@@ -6880,7 +6900,7 @@ var render = function() {
         return [
           column.name === "aksi"
             ? [
-                _c("td", { staticClass: "actions" }, [
+                _c("td", { staticClass: "actions text-right" }, [
                   _c(
                     "span",
                     { staticClass: "icon", on: { click: _vm.deleteRow } },
@@ -6905,6 +6925,21 @@ var render = function() {
                           }
                         },
                         [_c("i", { staticClass: "s7-note" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  column.extraGoToIcon
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "icon",
+                          on: {
+                            click: function($event) {
+                              return _vm.goTo(column.goToPath)
+                            }
+                          }
+                        },
+                        [_c("i", { class: column.extraGoToIconName })]
                       )
                     : _vm._e()
                 ])
@@ -6954,7 +6989,7 @@ var render = function() {
         return [
           column.name === "aksi"
             ? [
-                _c("td", { staticClass: "actions" }, [
+                _c("td", { staticClass: "actions text-right" }, [
                   _c(
                     "span",
                     { staticClass: "icon", on: { click: _vm.editRow } },
@@ -7103,7 +7138,7 @@ var render = function() {
   return _c(
     "tr",
     _vm._l(_vm.tableColumns, function(column) {
-      return _c("th", [
+      return _c("th", { class: column.name == "aksi" ? "text-right" : "" }, [
         column.sortable === true
           ? _c(
               "span",
@@ -8862,8 +8897,9 @@ new Vue({
       //action column must have 'aksi' as the name
       columnName: 'Aksi',
       editType: 'modal',
-      //inline, modal, goTo
-      modalName: 'editActiveUserModal'
+      //inline, modal
+      modalName: 'editActiveUserModal',
+      extraGoToIcon: false
     }],
     inactiveTableColumns: [{
       name: 'name',
@@ -8912,8 +8948,9 @@ new Vue({
       //action column must have 'aksi' as the name
       columnName: 'Aksi',
       editType: 'modal',
-      //inline, modal, goTo
-      modalName: 'editInactiveUserModal'
+      //inline, modal
+      modalName: 'editInactiveUserModal',
+      extraGoToIcon: false
     }],
     editActiveUserModal: false,
     editInactiveUserModal: false,
@@ -9010,7 +9047,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/user/main.js */"./resources/assets/js/vue-instances/master/user/main.js");
+module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/user/main.js */"./resources/assets/js/vue-instances/master/user/main.js");
 
 
 /***/ })

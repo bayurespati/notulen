@@ -71,8 +71,9 @@ new Vue({
     		{
     			name: 'aksi', //action column must have 'aksi' as the name
                 columnName: 'Aksi',
-                editType: 'modal', //inline, modal, goTo
-                modalName: 'editActiveUserModal'
+                editType: 'modal', //inline, modal
+                modalName: 'editActiveUserModal',
+                extraGoToIcon: false,
     		}
     	],
 
@@ -128,8 +129,9 @@ new Vue({
     		{
     			name: 'aksi', //action column must have 'aksi' as the name
                 columnName: 'Aksi',
-                editType: 'modal', //inline, modal, goTo
-                modalName: 'editInactiveUserModal'
+                editType: 'modal', //inline, modal
+                modalName: 'editInactiveUserModal',
+                extraGoToIcon: false,
     		}
     	],
 

@@ -2,7 +2,7 @@
     <tr class="bg-warning">
         <template v-for="column in tableColumns">
             <template v-if="column.name === 'aksi'">
-                <td class="actions">
+                <td class="actions text-right">
                     <span class="icon" @click="editRow"><i class="s7-diskette text-white font-weight-bold"></i></span>
                     <span class="icon" @click="setToData"><i class="s7-back text-white font-weight-bold"></i></span>
                 </td>

@@ -56,6 +56,14 @@ Route::group([
     		return view('masters.items.items');
     	})->name('item.list');
 
+        Route::get('/items/details/{itemId}', function() {
+            return view('masters.items.item_detail');
+        })->name('item.detail');
+
+        Route::get('/types', function() {
+            return view('masters.items.types');
+        })->name('type.list');
+
 
 		Route::get('/details', function() {
     		return view('masters.items.details');

@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -795,6 +795,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
   props: {
@@ -809,6 +815,18 @@ __webpack_require__.r(__webpack_exports__);
       "default": function _default() {
         return [];
       }
+    },
+    extraGoToIcon: {
+      type: Boolean,
+      "default": false
+    },
+    extraGoToIconName: {
+      type: String,
+      "default": ''
+    },
+    goToPath: {
+      type: String,
+      "default": ''
     }
   },
   computed: {},
@@ -821,6 +839,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     setToConfirm: function setToConfirm() {
       this.$emit('set-to-confirm', 'confirm');
+    },
+    goTo: function goTo(path) {
+      window.location.href = location.pathname + '/' + path + '/' + this.rowData.id;
     },
     deleteRow: function deleteRow() {
       this.setToConfirm();
@@ -1049,6 +1070,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TableHeader_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TableHeader.vue */ "./resources/assets/js/components/table/TableHeader.vue");
 /* harmony import */ var _TableRow_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TableRow.vue */ "./resources/assets/js/components/table/TableRow.vue");
 /* harmony import */ var _RowNoRecord_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RowNoRecord.vue */ "./resources/assets/js/components/table/RowNoRecord.vue");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
 //
 //
 //
@@ -1209,6 +1233,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     totalResults: function totalResults() {
       this.$emit('total-results-changed', this.totalResults);
+    },
+    columns: function columns() {
+      this.sortBasedOn(this.sortKey);
     }
   },
   methods: {
@@ -1252,14 +1279,44 @@ __webpack_require__.r(__webpack_exports__);
       this.searchResults.length = 0;
       var vm = this;
       this.searchResults = this.rootArray.filter(function (item) {
-        if (vm.searchKey.length > 0) {
-          for (var i = 0; i < vm.columns.length; i++) {
+        // if (vm.searchKey.length > 0) {
+        // for (let i = 0; i < vm.columns.length; i++) {
+        // if(Array.isArray(item[vm.columns[i]])){
+        // return item[vm.columns[i]].count;
+        // } 
+        // else {
+        // if (item[vm.columns[i]].toLowerCase().includes(value.toLowerCase())) {
+        // return item;
+        // }
+        // }
+        // }
+        // } 
+        // else {
+        // return item;
+        // }
+        for (var i = 0; i < vm.columns.length; i++) {
+          if (Array.isArray(item[vm.columns[i]])) {
+            var _ret = function () {
+              var matchCount = 0;
+              item[vm.columns[i]].forEach(function (arrayItem, arrayIndex) {
+                if (arrayItem.toLowerCase().includes(value.toLowerCase())) {
+                  matchCount++;
+                }
+              });
+
+              if (matchCount > 0) {
+                return {
+                  v: item
+                };
+              }
+            }();
+
+            if (_typeof(_ret) === "object") return _ret.v;
+          } else {
             if (item[vm.columns[i]].toLowerCase().includes(value.toLowerCase())) {
               return item;
             }
           }
-        } else {
-          return item;
         }
       });
       this.totalResults = this.searchResults.length;
@@ -1312,9 +1369,9 @@ __webpack_require__.r(__webpack_exports__);
       };
 
       for (var i = 0; i < this.rootArray.length; i++) {
-        var _ret = _loop(i);
+        var _ret2 = _loop(i);
 
-        if (_ret === "break") break;
+        if (_ret2 === "break") break;
       }
     },
     deleteARowInRootArray: function deleteARowInRootArray(data) {
@@ -1333,6 +1390,10 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return item;
+    },
+    showModal: function showModal(data) {
+      //modal name and row data
+      this.$emit('set-modal-to-show', data);
     },
     alertToDefault: function alertToDefault() {
       this.alertFlag = false;
@@ -3341,7 +3402,7 @@ var render = function() {
         return [
           column.name === "aksi"
             ? [
-                _c("td", { staticClass: "actions" }, [
+                _c("td", { staticClass: "actions text-right" }, [
                   _c(
                     "span",
                     { staticClass: "icon", on: { click: _vm.deleteRow } },
@@ -3366,6 +3427,21 @@ var render = function() {
                           }
                         },
                         [_c("i", { staticClass: "s7-note" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  column.extraGoToIcon
+                    ? _c(
+                        "span",
+                        {
+                          staticClass: "icon",
+                          on: {
+                            click: function($event) {
+                              return _vm.goTo(column.goToPath)
+                            }
+                          }
+                        },
+                        [_c("i", { class: column.extraGoToIconName })]
                       )
                     : _vm._e()
                 ])
@@ -3415,7 +3491,7 @@ var render = function() {
         return [
           column.name === "aksi"
             ? [
-                _c("td", { staticClass: "actions" }, [
+                _c("td", { staticClass: "actions text-right" }, [
                   _c(
                     "span",
                     { staticClass: "icon", on: { click: _vm.editRow } },
@@ -3609,7 +3685,10 @@ var render = function() {
                                 span: _vm.colspan,
                                 "api-path": _vm.apiPath
                               },
-                              on: { "edit-root-array": _vm.editRootArray }
+                              on: {
+                                "show-modal": _vm.showModal,
+                                "edit-root-array": _vm.editRootArray
+                              }
                             })
                           ]
                         })
@@ -3651,7 +3730,7 @@ var render = function() {
   return _c(
     "tr",
     _vm._l(_vm.tableColumns, function(column) {
-      return _c("th", [
+      return _c("th", { class: column.name == "aksi" ? "text-right" : "" }, [
         column.sortable === true
           ? _c(
               "span",
@@ -5207,8 +5286,9 @@ new Vue({
       name: 'aksi',
       //action column must have 'aksi' as the name
       columnName: 'Aksi',
-      editType: 'inline' //inline, modal, goTo
-
+      editType: 'inline',
+      //inline, modal
+      extraGoToIcon: false
     }],
     nullable: [],
     initialSort: 'name',
@@ -5238,14 +5318,14 @@ new Vue({
 
 /***/ }),
 
-/***/ 5:
+/***/ 8:
 /*!****************************************************************************!*\
   !*** multi ./resources/assets/js/vue-instances/master/item/detail/main.js ***!
   \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/item/detail/main.js */"./resources/assets/js/vue-instances/master/item/detail/main.js");
+module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/item/detail/main.js */"./resources/assets/js/vue-instances/master/item/detail/main.js");
 
 
 /***/ })

@@ -2,7 +2,7 @@
     <tr>
         <template v-for="column in tableColumns">
             <template v-if="column.name === 'aksi'">
-                <td class="actions">
+                <td class="actions text-right">
                     <span class="icon" @click="deleteRow"><i class="s7-trash"></i></span>
                     <span v-if="column.editType === 'inline'" 
                     class="icon" 
@@ -13,6 +13,12 @@
                     class="icon" 
                     @click="showModal(column.modalName)">
                         <i class="s7-note"></i>
+                    </span>
+
+                    <span v-if="column.extraGoToIcon"
+                    class="icon"
+                    @click="goTo(column.goToPath)">
+                        <i :class="column.extraGoToIconName"></i>
                     </span>
                 </td>
             </template>
@@ -44,6 +50,21 @@
                     return [];
                 }
             },
+
+            extraGoToIcon: {
+                type: Boolean,
+                default: false
+            },
+
+            extraGoToIconName: {
+                type: String,
+                default: ''
+            },
+
+            goToPath: {
+                type: String,
+                default: ''
+            }
         },
 
         computed: {},
@@ -59,6 +80,10 @@
 
             setToConfirm(){
                 this.$emit('set-to-confirm', 'confirm');
+            },
+
+            goTo(path){
+                window.location.href = location.pathname + '/' + path + '/' + this.rowData.id;
             },
 
             deleteRow(){

@@ -25,12 +25,16 @@
 
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/base.js') }}"></script>
+@stack('additional_js')
 <script type="text/javascript">
     $(document).ready(function(){
         //initialize the javascript
         App.init();
+
+        $(window).on('load',function(){
+        App.pageGallery();
+      });
     });
 </script>
-@stack('additional_js')
 </body>
 </html>

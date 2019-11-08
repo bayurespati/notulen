@@ -24,8 +24,9 @@ mix.js('resources/assets/js/app.js', 'public/js');
 mix.styles([
 	'resources/assets/lib/stroke-7/style.css',
     'resources/assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css',
+    'resources/assets/lib/select2/css/select2.min.css',
+    'resources/assets/lib/bootstrap-slider/css/bootstrap-slider.min.css',
     'resources/assets/css/template.css',
-    'resources/assets/lib/fuelux/css/wizard.css',
     'resources/assets/css/custom.css',
 ], 'public/css/base.css');
 
@@ -34,6 +35,17 @@ mix.styles([
     'resources/assets/css/loading.css',
     'resources/assets/loading-btn.css',
 ], 'public/css/animation.css');
+
+
+/*
+ |--------------------------------------------------------------------------
+ | G A L L E R Y   C S S
+ |--------------------------------------------------------------------------
+ |
+ */
+mix.styles([
+    'resources/assets/lib/jquery.magnific-popup/magnific-popup.css',
+], 'public/css/gallery.css');
 
 
 /*
@@ -48,7 +60,11 @@ mix.scripts([
     'resources/assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
     'resources/assets/lib/bootstrap/dist/js/bootstrap.min.js',
     'resources/assets/js/template/app.min.js',
+    'resources/assets/lib/jquery-ui/jquery-ui.min.js',
     'resources/assets/js/template/app-charts-sparkline.js',
+    'resources/assets/lib/jquery.magnific-popup/jquery.magnific-popup.min.js',
+    'resources/assets/lib/masonry/masonry.pkgd.min.js',
+    'resources/assets/js/template/app-pages-gallery.js',
 ], 'public/js/base.js');
 
 
@@ -95,6 +111,40 @@ mix.js([
 mix.js([
     'resources/assets/js/vue-instances/master/item/item/main.js',
 ], 'public/js/master/item.js');
+
+
+/*
+ |--------------------------------------------------------------------------
+ | D A T A   M A S T E R S   -   I T E M S   -   I T E M S   -   D E T A I L S
+ |--------------------------------------------------------------------------
+ |
+ */
+mix.js([
+    'resources/assets/js/vue-instances/master/item/item/item-view/main.js',
+], 'public/js/master/itemDetail.js');
+
+
+/*
+ |--------------------------------------------------------------------------
+ | G A L L E R Y   J S
+ |--------------------------------------------------------------------------
+ |
+ */
+mix.js([
+    'resources/assets/lib/jquery.magnific-popup/jquery.magnific-popup.min.js',
+    'resources/assets/lib/masonry/masonry.pkgd.min.js',
+    'resources/assets/js/template/app-pages-gallery.js',
+], 'public/js/gallery.js');
+
+/*
+ |--------------------------------------------------------------------------
+ | D A T A   M A S T E R S   -   I T E M S   -   T Y P E S 
+ |--------------------------------------------------------------------------
+ |
+ */
+mix.js([
+    'resources/assets/js/vue-instances/master/item/type/main.js',
+], 'public/js/master/type.js');
 
 
 /*

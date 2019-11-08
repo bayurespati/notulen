@@ -64,7 +64,7 @@ class User extends Authenticatable
                 'current_position' => $user->current_position,
                 'primary_contact' => $user->primary_contact,
                 'secondary_contact' => $user->secondary_contact,
-                'is_active' => $user->is_active,
+                'isActive' => $user->is_active === 1 ? true : false,
             ];
 
             return $dataUser;
