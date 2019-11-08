@@ -32,12 +32,12 @@ Route::group([
 
 Route::group([
     'prefix' => 'data_master',
-    'middleware' => ['auth', 'activated']
+    'middleware' => ['auth', 'activated', 'can:manage-datmas']
 ], function () {
 
     Route::get('/users', function() {
-    	return view('masters.users');
-    })->name('user.list');
+        return view('masters.users');
+    })->name('user.list')->middleware('can:manage-user');
 
     Route::get('/companies', function() {
     	return view('masters.companies');
@@ -64,11 +64,9 @@ Route::group([
             return view('masters.items.types');
         })->name('type.list');
 
-
 		Route::get('/details', function() {
     		return view('masters.items.details');
     	})->name('detail.list');
-
 
 		Route::get('/finishings', function() {
     		return view('masters.items.finishings');

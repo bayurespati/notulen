@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Permission;
+use App\Role;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -13,7 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
@@ -25,6 +28,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Role-Permissions based gates
+        foreach ($this->getAllPermissions() as $permission) {
+            Gate::define($permission->name, function ($user) use ($permission) {
+                return $user->hasRole($permission->roles);
+            });
+        }
+
+        Passport::routes();
+    }
+
+    /**
+     * Get All permissions available
+     */
+    public function getAllPermissions()
+    {
+        return Permission::all();
     }
 }
