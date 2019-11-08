@@ -58,40 +58,44 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo('App\Companies', 'companies_id');
     }
 
 
-    public static function allUserJson()
+    public function allUserJson()
     {
         $data = User::with(['company'])->get();
-        
 
         $users = $data->map(function ($user){
-
-            $dataUser = [
-                'id' => $user->id,
-                'name' => $user->name,
-                'company' => $user['company'],
-                'email' => $user->email,
-                'address' => $user->address,
-                'current_position' => $user->current_position,
-                'primary_contact' => $user->primary_contact,
-                'secondary_contact' => $user->secondary_contact,
-                'isActive' => $user->is_active === 1 ? true : false,
-            ];
-
+            $dataUser = $this->prepareJSON($user);
             return $dataUser;
         });
 
         return $users;
     }
 
+    public function prepareJSON($user)
+    {
+        $dataUser = [
+            'secondary_contact' => $user->secondary_contact,
+            'current_position' => $user->current_position,
+            'primary_contact' => $user->primary_contact,
+            'companyName' => $user['company']['name'],
+            'companyId' => $user['company']['id'],
+            'isActive' => $user->is_active === 1 || $user->is_active === true ? true : false,
+            'address' => $user->address,
+            'email' => $user->email,
+            'name' => $user->name,
+            'id' => $user->id,
+        ];
+
+        return $dataUser;
+    }
+
     public function hasRole($role)
     {
-
-
         // if $role is string
         if (is_string($role)) {
             return $this->role->name == str_slug($role);

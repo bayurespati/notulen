@@ -58,7 +58,7 @@ Route::group([
 	], function () {
 
 		Route::resource('user', 'UserController',[
-			'only' => ['index'],
+			'only' => ['index','store','update','destroy'],
 		])->middleware('can:manage-user');
 
 		Route::resource('msDescriptiveFinishing', 'MsDescriptiveFinishingController',[

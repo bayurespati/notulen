@@ -388,6 +388,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_FormError_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../global/FormError.vue */ "./resources/assets/js/components/global/FormError.vue");
+var _components$mounted$p;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -692,7 +696,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_components$mounted$p = {
   components: {
     FormError: _global_FormError_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -716,12 +720,6 @@ __webpack_require__.r(__webpack_exports__);
         return {};
       }
     },
-    companyArray: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
     apiPath: {
       type: String,
       "default": ""
@@ -741,102 +739,93 @@ __webpack_require__.r(__webpack_exports__);
         // password: '',
         isActive: true
       },
-      errors: {}
+      errors: {},
+      companyArray: []
     };
-  },
-  watch: {
-    showModal: function showModal() {
-      if (this.showModal) {
-        this.fillInputs();
-      }
-    },
-    'userData.isActive': function userDataIsActive(newValue, oldValue) {
-      if (newValue == true || newValue == "true") {
-        this.userData.isActive = true;
-      } else {
-        this.userData.isActive = false;
-      }
+  }
+}, _defineProperty(_components$mounted$p, "mounted", function mounted() {
+  this.getCompanies();
+}), _defineProperty(_components$mounted$p, "watch", {
+  showModal: function showModal() {
+    if (this.showModal) {
+      this.fillInputs();
     }
   },
-  computed: {
-    hideOrShowModal: function hideOrShowModal() {
-      return this.showModal ? 'modal-show' : '';
-    },
-    isInputAndDefaultTheSame: function isInputAndDefaultTheSame() {
-      var inputCount = 0;
-      var defaultCount = 0;
-      var vm = this;
-      Object.keys(this.editedData).map(function (variable) {
-        defaultCount++;
-
-        if (vm.editedData[variable] === vm.userData[variable]) {
-          inputCount++;
-        }
-      });
-      return inputCount === defaultCount;
-    }
-  },
-  methods: {
-    fillInputs: function fillInputs() {
-      this.userData.id = this.editedData.id;
-      this.userData.name = this.editedData.name;
-      this.userData.company = this.editedData.company;
-      this.userData.address = this.editedData.address;
-      this.userData.email = this.editedData.email;
-      this.userData.current_position = this.editedData.current_position;
-      this.userData.primary_contact = this.editedData.primary_contact;
-      this.userData.secondary_contact = this.editedData.secondary_contact; // this.userData.password = this.editedData.password;
-
-      this.userData.isActive = this.editedData.isActive;
-    },
-    cancel: function cancel() {
-      this.$emit('set-show-edit-active-user-modal-to-false');
-      this.cleanErrors();
-    },
-    editUser: function editUser() {
-      var vm = this;
-
-      if (this.apiPath == 'insert api path here') {
-        var testUpdate = {
-          data: {
-            'content': this.userData,
-            'action': 'edit',
-            'type': 'success',
-            'msg': 'Entri telah berhasil diperbarui!'
-          }
-        };
-        this.$emit('set-alert-flag', [true, testUpdate]);
-        flash('Entri telah berhasil diperbarui');
-        this.cancel();
-      } else {
-        axios.patch('/api/' + this.apiPath + "/" + this.userData.id, this.userData).then(function (response) {
-          vm.$emit('set-alert-flag', [true, response]);
-          flash('Entri telah berhasil diperbarui');
-          this.cancel();
-        })["catch"](function (error) {
-          vm.cleanErrors();
-          vm.fillErrors(error.response.data);
-          flash('Ups, terjadi masalah!', 'danger');
-        });
-      }
-    },
-    cleanErrors: function cleanErrors() {
-      this.hasError = false;
-      this.errors = {};
-    },
-    fillErrors: function fillErrors(errorMessages) {
-      Object.keys(errorMessages).forEach(function (key) {
-        var message = "";
-        errorMessages[key].forEach(function (value) {
-          message = message + value + " ";
-        });
-        errorMessages[key] = message;
-      });
-      this.errors = errorMessages;
-      this.hasError = true;
+  'userData.isActive': function userDataIsActive(newValue, oldValue) {
+    if (newValue == true || newValue == "true") {
+      this.userData.isActive = true;
+    } else {
+      this.userData.isActive = false;
     }
   }
-});
+}), _defineProperty(_components$mounted$p, "computed", {
+  hideOrShowModal: function hideOrShowModal() {
+    return this.showModal ? 'modal-show' : '';
+  },
+  isInputAndDefaultTheSame: function isInputAndDefaultTheSame() {
+    var inputCount = 0;
+    var defaultCount = 0;
+    var vm = this;
+    Object.keys(this.editedData).map(function (variable) {
+      defaultCount++;
+
+      if (vm.editedData[variable] === vm.userData[variable]) {
+        inputCount++;
+      }
+    });
+    return inputCount === defaultCount;
+  }
+}), _defineProperty(_components$mounted$p, "methods", {
+  getCompanies: function getCompanies() {
+    var vm = this;
+    axios.get('/api/companies').then(function (response) {
+      vm.companyArray = response.data;
+    });
+  },
+  fillInputs: function fillInputs() {
+    this.userData.id = this.editedData.id;
+    this.userData.name = this.editedData.name;
+    this.userData.company = this.editedData.companyName;
+    this.userData.address = this.editedData.address;
+    this.userData.email = this.editedData.email;
+    this.userData.current_position = this.editedData.current_position;
+    this.userData.primary_contact = this.editedData.primary_contact;
+    this.userData.secondary_contact = this.editedData.secondary_contact; // this.userData.password = this.editedData.password;
+
+    this.userData.isActive = this.editedData.isActive;
+  },
+  cancel: function cancel() {
+    this.$emit('set-show-edit-active-user-modal-to-false');
+    this.cleanErrors();
+  },
+  editUser: function editUser() {
+    var vm = this;
+    axios.patch('/api/' + this.apiPath + "/" + this.userData.id, this.userData).then(function (response) {
+      vm.$emit('set-alert-flag', [true, response]);
+      flash('Entri telah berhasil diperbarui');
+      vm.cancel();
+    })["catch"](function (error) {
+      vm.cleanErrors();
+      vm.fillErrors(error.response.data.errors);
+      flash('Ups, terjadi masalah!', 'danger');
+    });
+  },
+  cleanErrors: function cleanErrors() {
+    this.hasError = false;
+    this.errors = {};
+  },
+  fillErrors: function fillErrors(errorMessages) {
+    Object.keys(errorMessages).forEach(function (key) {
+      var message = "";
+      errorMessages[key].forEach(function (value) {
+        message = message + value + " ";
+      });
+      errorMessages[key] = message;
+    });
+    this.errors = errorMessages;
+    this.hasError = true;
+  }
+}), _components$mounted$p);
 
 /***/ }),
 
@@ -850,6 +839,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _global_FormError_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../global/FormError.vue */ "./resources/assets/js/components/global/FormError.vue");
+var _components$mounted$p;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1109,7 +1102,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-/* harmony default export */ __webpack_exports__["default"] = ({
+/* harmony default export */ __webpack_exports__["default"] = (_components$mounted$p = {
   components: {
     FormError: _global_FormError_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -1133,12 +1126,6 @@ __webpack_require__.r(__webpack_exports__);
         return {};
       }
     },
-    companyArray: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
-    },
     apiPath: {
       type: String,
       "default": ""
@@ -1158,102 +1145,93 @@ __webpack_require__.r(__webpack_exports__);
         // password: '',
         isActive: true
       },
-      errors: {}
+      errors: {},
+      companyArray: []
     };
-  },
-  watch: {
-    showModal: function showModal() {
-      if (this.showModal) {
-        this.fillInputs();
-      }
-    },
-    'userData.isActive': function userDataIsActive(newValue, oldValue) {
-      if (newValue == true || newValue == "true") {
-        this.userData.isActive = true;
-      } else {
-        this.userData.isActive = false;
-      }
+  }
+}, _defineProperty(_components$mounted$p, "mounted", function mounted() {
+  this.getCompanies();
+}), _defineProperty(_components$mounted$p, "watch", {
+  showModal: function showModal() {
+    if (this.showModal) {
+      this.fillInputs();
     }
   },
-  computed: {
-    hideOrShowModal: function hideOrShowModal() {
-      return this.showModal ? 'modal-show' : '';
-    },
-    isInputAndDefaultTheSame: function isInputAndDefaultTheSame() {
-      var inputCount = 0;
-      var defaultCount = 0;
-      var vm = this;
-      Object.keys(this.editedData).map(function (variable) {
-        defaultCount++;
-
-        if (vm.editedData[variable] === vm.userData[variable]) {
-          inputCount++;
-        }
-      });
-      return inputCount === defaultCount;
-    }
-  },
-  methods: {
-    fillInputs: function fillInputs() {
-      this.userData.id = this.editedData.id;
-      this.userData.name = this.editedData.name;
-      this.userData.company = this.editedData.company;
-      this.userData.address = this.editedData.address;
-      this.userData.email = this.editedData.email;
-      this.userData.current_position = this.editedData.current_position;
-      this.userData.primary_contact = this.editedData.primary_contact;
-      this.userData.secondary_contact = this.editedData.secondary_contact; // this.userData.password = this.editedData.password;
-
-      this.userData.isActive = this.editedData.isActive;
-    },
-    cancel: function cancel() {
-      this.$emit('set-show-edit-inactive-user-modal-to-false');
-      this.cleanErrors();
-    },
-    editUser: function editUser() {
-      var vm = this;
-
-      if (this.apiPath == 'insert api path here') {
-        var testUpdate = {
-          data: {
-            'content': this.userData,
-            'action': 'edit',
-            'type': 'success',
-            'msg': 'Entri telah berhasil diperbarui!'
-          }
-        };
-        this.$emit('set-alert-flag', [true, testUpdate]);
-        flash('Entri telah berhasil diperbarui');
-        this.cancel();
-      } else {
-        axios.patch('/api/' + this.apiPath + "/" + this.userData.id, this.userData).then(function (response) {
-          vm.$emit('set-alert-flag', [true, response]);
-          flash('Entri telah berhasil diperbarui');
-          this.cancel();
-        })["catch"](function (error) {
-          vm.cleanErrors();
-          vm.fillErrors(error.response.data);
-          flash('Ups, terjadi masalah!', 'danger');
-        });
-      }
-    },
-    cleanErrors: function cleanErrors() {
-      this.hasError = false;
-      this.errors = {};
-    },
-    fillErrors: function fillErrors(errorMessages) {
-      Object.keys(errorMessages).forEach(function (key) {
-        var message = "";
-        errorMessages[key].forEach(function (value) {
-          message = message + value + " ";
-        });
-        errorMessages[key] = message;
-      });
-      this.errors = errorMessages;
-      this.hasError = true;
+  'userData.isActive': function userDataIsActive(newValue, oldValue) {
+    if (newValue == true || newValue == "true") {
+      this.userData.isActive = true;
+    } else {
+      this.userData.isActive = false;
     }
   }
-});
+}), _defineProperty(_components$mounted$p, "computed", {
+  hideOrShowModal: function hideOrShowModal() {
+    return this.showModal ? 'modal-show' : '';
+  },
+  isInputAndDefaultTheSame: function isInputAndDefaultTheSame() {
+    var inputCount = 0;
+    var defaultCount = 0;
+    var vm = this;
+    Object.keys(this.editedData).map(function (variable) {
+      defaultCount++;
+
+      if (vm.editedData[variable] === vm.userData[variable]) {
+        inputCount++;
+      }
+    });
+    return inputCount === defaultCount;
+  }
+}), _defineProperty(_components$mounted$p, "methods", {
+  getCompanies: function getCompanies() {
+    var vm = this;
+    axios.get('/api/companies').then(function (response) {
+      vm.companyArray = response.data;
+    });
+  },
+  fillInputs: function fillInputs() {
+    this.userData.id = this.editedData.id;
+    this.userData.name = this.editedData.name;
+    this.userData.company = this.editedData.companyName;
+    this.userData.address = this.editedData.address;
+    this.userData.email = this.editedData.email;
+    this.userData.current_position = this.editedData.current_position;
+    this.userData.primary_contact = this.editedData.primary_contact;
+    this.userData.secondary_contact = this.editedData.secondary_contact; // this.userData.password = this.editedData.password;
+
+    this.userData.isActive = this.editedData.isActive;
+  },
+  cancel: function cancel() {
+    this.$emit('set-show-edit-inactive-user-modal-to-false');
+    this.cleanErrors();
+  },
+  editUser: function editUser() {
+    var vm = this;
+    axios.patch('/api/' + this.apiPath + "/" + this.userData.id, this.userData).then(function (response) {
+      vm.$emit('set-alert-flag', [true, response]);
+      flash('Entri telah berhasil diperbarui');
+      vm.cancel();
+    })["catch"](function (error) {
+      vm.cleanErrors();
+      vm.fillErrors(error.response.data.errors);
+      flash('Ups, terjadi masalah!', 'danger');
+    });
+  },
+  cleanErrors: function cleanErrors() {
+    this.hasError = false;
+    this.errors = {};
+  },
+  fillErrors: function fillErrors(errorMessages) {
+    Object.keys(errorMessages).forEach(function (key) {
+      var message = "";
+      errorMessages[key].forEach(function (value) {
+        message = message + value + " ";
+      });
+      errorMessages[key] = message;
+    });
+    this.errors = errorMessages;
+    this.hasError = true;
+  }
+}), _components$mounted$p);
 
 /***/ }),
 
@@ -1528,7 +1506,8 @@ __webpack_require__.r(__webpack_exports__);
         secondary_contact: '',
         isActive: true
       },
-      errors: {}
+      errors: {},
+      companyArray: []
     };
   },
   props: {
@@ -1539,12 +1518,6 @@ __webpack_require__.r(__webpack_exports__);
     apiPath: {
       type: String,
       "default": ''
-    },
-    companyArray: {
-      type: Array,
-      "default": function _default() {
-        return [];
-      }
     }
   },
   watch: {
@@ -1556,12 +1529,21 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
+  mounted: function mounted() {
+    this.getCompanies();
+  },
   computed: {
     password: function password() {
       return this.userData.name + 'NotulenApp';
     }
   },
   methods: {
+    getCompanies: function getCompanies() {
+      var vm = this;
+      axios.get('/api/companies').then(function (response) {
+        vm.companyArray = response.data;
+      });
+    },
     addUser: function addUser() {
       var sentData = {
         name: this.userData.name,
@@ -1574,31 +1556,16 @@ __webpack_require__.r(__webpack_exports__);
         isActive: this.userData.isActive,
         password: this.password
       };
-
-      if (this.apiPath == "insert api path here") {
-        var testAdd = {
-          data: {
-            'content': sentData,
-            'action': 'add',
-            'type': 'success',
-            'msg': 'Entri telah berhasil ditambah!'
-          }
-        };
-        this.$emit('set-alert-flag', [true, testAdd]);
-        this.resetForm();
+      var vm = this;
+      axios.post('/api/' + this.apiPath, sentData).then(function (response) {
+        vm.$emit('set-alert-flag', [true, response]);
+        vm.resetForm();
         flash('Entri telah berhasil ditambah!');
-      } else {
-        var vm = this;
-        axios.post('/api/' + this.apiPath, this.sentData).then(function (response) {
-          vm.$emit('set-alert-flag', [true, response]);
-          vm.resetForm();
-          flash('Entri telah berhasil ditambah!');
-        })["catch"](function (error) {
-          vm.cleanErrors();
-          vm.fillErrors(error);
-          flash('Ups, terjadi masalah!', 'danger');
-        });
-      }
+      })["catch"](function (error) {
+        vm.cleanErrors();
+        vm.fillErrors(error.response.data.errors);
+        flash('Ups, terjadi masalah!', 'danger');
+      });
     },
     resetForm: function resetForm() {
       this.userData.name = '';
@@ -4213,11 +4180,13 @@ var render = function() {
                               }
                             },
                             [
-                              _vm._l(_vm.companyArray, function(value) {
+                              _vm._l(_vm.companyArray, function(company) {
                                 return [
-                                  _c("option", { domProps: { value: value } }, [
-                                    _vm._v(_vm._s(value))
-                                  ])
+                                  _c(
+                                    "option",
+                                    { domProps: { value: company.name } },
+                                    [_vm._v(_vm._s(company.name))]
+                                  )
                                 ]
                               })
                             ],
@@ -5054,11 +5023,13 @@ var render = function() {
                               }
                             },
                             [
-                              _vm._l(_vm.companyArray, function(value) {
+                              _vm._l(_vm.companyArray, function(company) {
                                 return [
-                                  _c("option", { domProps: { value: value } }, [
-                                    _vm._v(_vm._s(value))
-                                  ])
+                                  _c(
+                                    "option",
+                                    { domProps: { value: company.name } },
+                                    [_vm._v(_vm._s(company.name))]
+                                  )
                                 ]
                               })
                             ],
@@ -5703,10 +5674,14 @@ var render = function() {
                           }
                         },
                         [
-                          _vm._l(_vm.companyArray, function(value) {
+                          _c("option", { attrs: { value: "" } }, [
+                            _vm._v(" Pilih Perusahaan ")
+                          ]),
+                          _vm._v(" "),
+                          _vm._l(_vm.companyArray, function(company) {
                             return [
-                              _c("option", { domProps: { value: value } }, [
-                                _vm._v(_vm._s(value))
+                              _c("option", { domProps: { value: company } }, [
+                                _vm._v(_vm._s(company.name))
                               ])
                             ]
                           })
@@ -8851,7 +8826,7 @@ new Vue({
       inputType: 'text',
       inputValue: false
     }, {
-      name: 'company',
+      name: 'companyName',
       columnName: 'Perusahaan',
       sortable: true,
       deleteMsg: false,
@@ -8954,7 +8929,7 @@ new Vue({
     }],
     editActiveUserModal: false,
     editInactiveUserModal: false,
-    nullable: ['company', 'secondary_contact'],
+    nullable: ['companyName', 'secondary_contact'],
     companyArray: ['Kompeni Satu', 'Kompeni Dua', 'Kompeni Tiga'],
     initialSort: 'name',
     apiPath: 'user',
@@ -8972,7 +8947,7 @@ new Vue({
       current_position: '',
       primary_contact: '',
       secondary_contact: '',
-      company: '',
+      companyName: '',
       isActive: ''
     }
   },
@@ -9014,7 +8989,7 @@ new Vue({
       this.editedData.primary_contact = data.primary_contact;
       this.editedData.secondary_contact = data.secondary_contact;
       this.editedData.isActive = data.isActive;
-      this.editedData.company = data.company;
+      this.editedData.companyName = data.companyName;
     },
     emptyEditedData: function emptyEditedData() {
       this.editedData.id = '';
@@ -9024,7 +8999,7 @@ new Vue({
       this.editedData.current_position = '';
       this.editedData.primary_contact = '';
       this.editedData.secondary_contact = '';
-      this.editedData.company = '';
+      this.editedData.companyName = '';
       this.editedData.isActive = '';
     }
   },
@@ -9047,7 +9022,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/vue-instances/master/user/main.js */"./resources/assets/js/vue-instances/master/user/main.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/vue-instances/master/user/main.js */"./resources/assets/js/vue-instances/master/user/main.js");
 
 
 /***/ })

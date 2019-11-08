@@ -12506,9 +12506,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var __WEBPACK_LO
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/lib/jquery.magnific-popup/jquery.magnific-popup.min.js */"./resources/assets/lib/jquery.magnific-popup/jquery.magnific-popup.min.js");
-__webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/lib/masonry/masonry.pkgd.min.js */"./resources/assets/lib/masonry/masonry.pkgd.min.js");
-module.exports = __webpack_require__(/*! /Users/ariyantowibowo/PhpstormProjects/notulen/resources/assets/js/template/app-pages-gallery.js */"./resources/assets/js/template/app-pages-gallery.js");
+__webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/lib/jquery.magnific-popup/jquery.magnific-popup.min.js */"./resources/assets/lib/jquery.magnific-popup/jquery.magnific-popup.min.js");
+__webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/lib/masonry/masonry.pkgd.min.js */"./resources/assets/lib/masonry/masonry.pkgd.min.js");
+module.exports = __webpack_require__(/*! /Users/DWP/QuickPro/notulen/resources/assets/js/template/app-pages-gallery.js */"./resources/assets/js/template/app-pages-gallery.js");
 
 
 /***/ })

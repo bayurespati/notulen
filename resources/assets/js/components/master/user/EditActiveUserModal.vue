@@ -85,8 +85,8 @@
                                     @keyup.enter="editUser"
                                     class="form-control form-control-xs custom-select">
 
-                                        <template v-for="value in companyArray">
-                                            <option :value="value">{{ value }}</option>
+                                        <template v-for="company in companyArray">
+                                            <option :value="company.name">{{ company.name }}</option>
                                         </template>
                                     </select>
 
@@ -332,13 +332,6 @@
                 }
             },
 
-            companyArray: {
-                type: Array,
-                default: function () {
-                    return [];
-                }
-            },
-
             apiPath: {
                 type: String,
                 default: ""
@@ -361,7 +354,12 @@
                     isActive: true,
                 },
                 errors: {},
+                companyArray: []
             };
+        },
+
+        mounted() {
+            this.getCompanies();
         },
 
         watch: {
@@ -410,10 +408,18 @@
 
         methods: {
 
+            getCompanies() {
+                let vm = this;
+
+                axios.get('/api/companies').then(response => {
+                    vm.companyArray = response.data
+                });
+            },
+
             fillInputs() {
                 this.userData.id = this.editedData.id;
                 this.userData.name = this.editedData.name;
-                this.userData.company = this.editedData.company;
+                this.userData.company = this.editedData.companyName;
                 this.userData.address = this.editedData.address;
                 this.userData.email = this.editedData.email;
                 this.userData.current_position = this.editedData.current_position;
@@ -431,32 +437,17 @@
             editUser(){
                 const vm = this;
 
-                if(this.apiPath == 'insert api path here'){
-                    const testUpdate = {
-                        data: {
-                            'content': this.userData,
-                            'action': 'edit',
-                            'type': 'success',
-                            'msg': 'Entri telah berhasil diperbarui!'
-                        }
-                    }
-                    this.$emit('set-alert-flag', [true, testUpdate]);
+                axios.patch('/api/' + this.apiPath + "/" + this.userData.id, this.userData)
+                .then(function (response) {
+                    vm.$emit('set-alert-flag', [true, response]);
                     flash('Entri telah berhasil diperbarui');
-                    this.cancel();
-                }
-                else {
-                    axios.patch('/api/' + this.apiPath + "/" + this.userData.id, this.userData)
-                    .then(function (response) {
-                        vm.$emit('set-alert-flag', [true, response]);
-                        flash('Entri telah berhasil diperbarui');
-                        this.cancel();
-                    })
-                    .catch(function (error) {
-                        vm.cleanErrors();
-                        vm.fillErrors(error.response.data);
-                        flash('Ups, terjadi masalah!', 'danger');
-                    });
-                }
+                    vm.cancel();
+                })
+                .catch(function (error) {
+                    vm.cleanErrors();
+                    vm.fillErrors(error.response.data.errors);
+                    flash('Ups, terjadi masalah!', 'danger');
+                });
             },
 
             cleanErrors(){

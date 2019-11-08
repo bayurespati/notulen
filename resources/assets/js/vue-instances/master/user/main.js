@@ -21,7 +21,7 @@ new Vue({
     			inputValue: false
     		},
     		{
-    			name: 'company',
+    			name: 'companyName',
                 columnName: 'Perusahaan',
     			sortable: true,
     			deleteMsg: false,
@@ -138,7 +138,7 @@ new Vue({
     	editActiveUserModal: false,
     	editInactiveUserModal: false,
 
-        nullable: ['company', 'secondary_contact'],
+        nullable: ['companyName', 'secondary_contact'],
 
         companyArray:  ['Kompeni Satu', 'Kompeni Dua', 'Kompeni Tiga'],
 
@@ -161,7 +161,7 @@ new Vue({
    			current_position: '',
    			primary_contact: '',
    			secondary_contact: '',
-   			company: '', 
+   			companyName: '', 
    			isActive: '',
     	},
     },
@@ -210,7 +210,7 @@ new Vue({
    			this.editedData.primary_contact = data.primary_contact;
    			this.editedData.secondary_contact = data.secondary_contact;
    			this.editedData.isActive = data.isActive;
-   			this.editedData.company = data.company;
+   			this.editedData.companyName = data.companyName;
     	},
 
     	emptyEditedData(){
@@ -221,7 +221,7 @@ new Vue({
    			this.editedData.current_position = '';
    			this.editedData.primary_contact = '';
    			this.editedData.secondary_contact = '';
-   			this.editedData.company = '';
+   			this.editedData.companyName = '';
    			this.editedData.isActive = '';
     	}
     },

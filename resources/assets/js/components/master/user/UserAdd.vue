@@ -43,9 +43,9 @@
                     <select v-model="userData.company"
                     @keyup.enter="addUser"
                     class="form-control form-control-xs custom-select">
-
-                    	<template v-for="value in companyArray">
-                   			<option :value="value">{{ value }}</option>
+                        <option value=""> Pilih Perusahaan </option>
+                    	<template v-for="company in companyArray">
+                   			<option :value="company">{{ company.name }}</option>
                			</template>
                		</select>
 
@@ -262,7 +262,8 @@
                     secondary_contact: '',
                     isActive: true,
                 },
-                errors: {}
+                errors: {},
+                companyArray: []
             }
         },
 
@@ -276,13 +277,6 @@
                 type: String,
                 default: ''
             },
-
-            companyArray: {
-            	type: Array,
-                default: function () {
-                    return [];
-                }
-            }
         },
 
         watch: {
@@ -296,13 +290,25 @@
         	}
         },
 
+        mounted() {
+            this.getCompanies();
+        },
+
         computed: {
         	password(){
         		return this.userData.name + 'NotulenApp';
-        	}
+        	},
         },
 
         methods: {
+            getCompanies() {
+                let vm = this;
+
+                axios.get('/api/companies').then(response => {
+                    vm.companyArray = response.data
+                });
+            },
+
             addUser(){
             	const sentData = {
                 	name: this.userData.name,
@@ -316,34 +322,19 @@
                    	password: this.password
                	}
 
-                if(this.apiPath == "insert api path here"){
-                    const testAdd = {
-                        data: {
-                            'content': sentData,
-                            'action': 'add',
-                            'type': 'success',
-                            'msg': 'Entri telah berhasil ditambah!'
-                        }
-                    }
-        
-                    this.$emit('set-alert-flag', [true, testAdd]);
-                    this.resetForm();
+                const vm = this;
+
+                axios.post('/api/' + this.apiPath, sentData)
+                .then(function (response) {
+                    vm.$emit('set-alert-flag', [true, response]);
+                    vm.resetForm();
                     flash('Entri telah berhasil ditambah!');
-                }
-                else {
-                    const vm = this;
-                    axios.post('/api/' + this.apiPath, this.sentData)
-                    .then(function (response) {
-                        vm.$emit('set-alert-flag', [true, response]);
-                        vm.resetForm();
-                        flash('Entri telah berhasil ditambah!');
-                    })
-                    .catch(function (error) {
-                        vm.cleanErrors();
-                        vm.fillErrors(error);
-                        flash('Ups, terjadi masalah!', 'danger');
-                    })
-                }
+                })
+                .catch(function (error) {
+                    vm.cleanErrors();
+                    vm.fillErrors(error.response.data.errors);
+                    flash('Ups, terjadi masalah!', 'danger');
+                })
             },
 
             resetForm(){
